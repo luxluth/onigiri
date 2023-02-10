@@ -1,5 +1,4 @@
-<h1 style="display: flex; justify-content: space-between;">onigiri <img src="assets/onigiri.svg" style="height: 2em">
-</h1>
+# onigiri
 
 A small fast and simple video player for the web.
 
