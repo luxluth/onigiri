@@ -17,8 +17,13 @@ Available on:
 
 ## Usage
 
+```bash
+npm install onigirijs
+
+```
+
 ```ts
-import { Onigiri } from 'onigiri'
+import { Onigiri } from 'onigirijs'
 
 const player = vid = new Onigiri('#player', {
             source:{

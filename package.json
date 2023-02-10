@@ -1,5 +1,5 @@
 {
-    "name": "onigiri",
+    "name": "onigirijs",
     "license": "MIT",
     "main": "dist/index.js",
     "module": "dist/index.mjs",
