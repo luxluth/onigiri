@@ -18,7 +18,7 @@ Available on:
 ## Usage
 
 ```bash
-npm install onigirijs
+npm install @luxluth/onigiri
 
 ```
 
