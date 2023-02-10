@@ -1,5 +1,22 @@
 {
-    "name": "onigirijs",
+    "name": "@luxluth/onigiri",
+    "description": "A simple video player for the web",
+    "keywords": [
+        "video",
+        "player",
+        "web",
+        "html",
+        "javascript",
+        "typescript"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/luxluth/onigiri.git"
+    },
+    "author": "luxluth",
+    "bugs": {
+        "url": "https://github.com/luxluth/onigiri/issues"
+    },
     "license": "MIT",
     "main": "dist/index.js",
     "module": "dist/index.mjs",

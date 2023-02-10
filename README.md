@@ -23,7 +23,7 @@ npm install onigirijs
 ```
 
 ```ts
-import { Onigiri } from 'onigirijs'
+import { Onigiri } from '@luxluth/onigiri'
 
 const player = vid = new Onigiri('#player', {
             source:{
