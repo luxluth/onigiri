@@ -1,5 +1,11 @@
 # onigiri
 
+## 0.2.4
+
+### Patch Changes
+
+- 7514e7f: .npmignore
+
 ## 0.2.2
 
 ### Patch Changes
