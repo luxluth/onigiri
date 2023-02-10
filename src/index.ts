@@ -30,7 +30,7 @@ type Subtitles = {
 type Options = {
     // This is the player configuration.
     // This is the controls.
-    controls: [
+    controls?: [
         'play-large'?, // The large play button in the center
         'play'?, // Play/pause playback
         'progress'?, // The progress bar and scrubber for playback and buffering
@@ -1355,7 +1355,7 @@ class Onigiri {
 
     controlsHtml(pl: HTMLDivElement) {
         // if next not in Options.controls remove the element from the dom with the class .onigiri-next
-        if (!this.Options.controls.includes("next")) {
+        if (!this.Options.controls?.includes("next")) {
             let next = pl.querySelector(".onigiri-next") as HTMLButtonElement;
             next.remove();
         }
