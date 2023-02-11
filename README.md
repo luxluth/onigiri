@@ -22,15 +22,18 @@ npm install @luxluth/onigiri
 ```
 
 ```ts
-import Onigiri from '@luxluth/onigiri'
+import Onigiri from "@luxluth/onigiri"
 
-const player = vid = new Onigiri('#player', {
-            source:{
-                src: "https://example.com/video.mp4",
-                type: 'video/mp4',
+const player = new Onigiri("#video",{
+            source : {
+                src : "src/video/file_example1920.mp4",
+                type : "video/mp4"
             },
-            title: "Example video",
-        });
+            css : "width: 100%; height: 100vh;",
+            title : "Onigiri",
+        })
+
+await player.load()
 ```
 
 ## License
