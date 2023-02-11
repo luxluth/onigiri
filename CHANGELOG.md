@@ -1,5 +1,11 @@
 # onigiri
 
+## 0.2.5
+
+### Patch Changes
+
+- 9701753: Improve index and start of Menubuilder
+
 ## 0.2.4
 
 ### Patch Changes
