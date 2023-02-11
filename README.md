@@ -36,6 +36,8 @@ const player = new Onigiri("#video",{
 await player.load()
 ```
 
+![example](https://raw.githubusercontent.com/luxluth/onigiri/main/assets/exemple.png)
+
 ## License
 
 MIT
