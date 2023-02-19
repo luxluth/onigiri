@@ -108,6 +108,7 @@ class MenuBuilder {
 
     constructor() {
         this.menu = new Menu()
+        return this
     }
 
     addItem(label: string, icon?: string) {
@@ -156,7 +157,10 @@ class MenuBuilder {
         })
         return this
     }
-
+    
+    build() {
+        return this.menu
+    }
     
 }
 
@@ -165,10 +169,13 @@ nestedItem.nest(new Item("in"))
 nestedItem.nested?.nest(new Item("deeper").nest(new Item("even deeper")))
 
 let menu = new MenuBuilder()
-menu.addItem("lol")
-    .addItem("mdr")
-    .addRange("volume", null)
-    .add(nestedItem)
+        .addItem("lol")
+        .addItem("mdr")
+        .addRange("volume", null)
+        .add(nestedItem)
+        .build()
+
+console.log(menu.items)   
 
 
 export {
