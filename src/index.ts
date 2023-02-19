@@ -44,7 +44,7 @@ const PlayerBaseHtml = `
     </div>
     <div class="onigiri-controlBar">
       <div class="onigiri-time onigiri-current-time">
-        <span></span>
+        <span>00:00</span>
       </div>
       <div class="onigiri-timeline-container" style="--progress-position: 0">
         <div class="onigiri-timeline"></div>
