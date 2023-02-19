@@ -5,10 +5,12 @@ class Item {
     constructor(label: string, icon: string | null=null) {
         this.label = label
         this.icon = icon
+        return this
     }
 
     nest(item: Item) {
         this.nested = item
+        return this
     }
 }
 
@@ -157,6 +159,17 @@ class MenuBuilder {
 
     
 }
+
+let nestedItem = new Item("top")
+nestedItem.nest(new Item("in"))
+nestedItem.nested?.nest(new Item("deeper").nest(new Item("even deeper")))
+
+let menu = new MenuBuilder()
+menu.addItem("lol")
+    .addItem("mdr")
+    .addRange("volume", null)
+    .add(nestedItem)
+
 
 export {
     Item,
