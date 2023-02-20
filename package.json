@@ -21,7 +21,7 @@
     "main": "dist/index.js",
     "module": "dist/index.mjs",
     "types": "dist/index.d.ts",
-    "version": "0.2.5",
+    "version": "0.2.6",
     "scripts": {
         "build": "tsup --entry src/index.ts --entry src/menu/index.ts --format cjs,esm --dts",
         "dev": "tsup --entry src/index.ts --entry src/menu/index.ts --watch --format cjs,esm --dts",
