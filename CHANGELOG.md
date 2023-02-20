@@ -1,5 +1,11 @@
 # onigiri
 
+## 0.2.6
+
+### Patch Changes
+
+- 687c4a6: Minor change -- Adding menu logic
+
 ## 0.2.5
 
 ### Patch Changes
