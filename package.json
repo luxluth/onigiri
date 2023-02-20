@@ -23,8 +23,8 @@
     "types": "dist/index.d.ts",
     "version": "0.2.5",
     "scripts": {
-        "build": "tsup --entry src/index.ts --entry src/menu/index.ts --format cjs,esm --dts --minify terser",
-        "dev": "tsup --entry src/index.ts --entry src/menu/index.ts --watch --format cjs,esm --dts --minify",
+        "build": "tsup --entry src/index.ts --entry src/menu/index.ts --format cjs,esm --dts",
+        "dev": "tsup --entry src/index.ts --entry src/menu/index.ts --watch --format cjs,esm --dts",
         "lint": "tsc"
     },
     "devDependencies": {
