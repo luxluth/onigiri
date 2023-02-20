@@ -1,3 +1,5 @@
+import { Menu } from './menu'
+
 type QualityOpt = {
     name: 144 | 240 | 360 | 480 | 720 | 1080 | 1440 | 2160 | 2880 | 4320;
     source: string;
@@ -189,6 +191,11 @@ type Options = {
      * ```
      */
     onQuit?: boolean
+
+    /**
+     * menu: An onigiri menu Element class
+     */
+    menu?: Menu
 }
 
 type Position = {

@@ -153,9 +153,13 @@ class ChoiceItem extends Item {
         let openIcon = new HTMLDivElement()
         openIcon.className = "onigiri-menu-item-choice-open"
         let openIconImage = new SVGElement()
-        openIconImage.innerHTML = `
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        // create attributes
+        openIconImage.setAttribute("viewBox", "0 0 500 500")
+        openIconImage.setAttribute("xmlns", "http://www.w3.org/2000/svg")
+        openIconImage.innerHTML = `<path d="M 299.942 371.135 L 356.022 143.033 L 120.674 143.033 C 110.619 143.033 102.468 134.882 102.468 124.827 C 102.468 114.772 110.619 106.621 120.674 106.621 L 375.959 106.621 C 378.44 106.153 381.058 106.197 383.669 106.839 C 393.433 109.239 399.403 119.101 397.002 128.865 L 335.301 379.828 C 332.9 389.592 323.039 395.562 313.275 393.161 C 303.511 390.761 297.541 380.899 299.942 371.135 Z" style="" transform="matrix(0.738433, 0.674327, -0.674327, 0.738433, 233.973549, -103.190291)"/>
         `
+        openIcon.append(openIconImage)
+
         this.html.append(dscrp)
 
         this.html.append(choice)
