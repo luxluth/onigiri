@@ -3,3 +3,6 @@
 assets
 CHANGELOG.md
 tsconfig.json
+src
+tsconfig.json
+pnpm-lock.yaml
