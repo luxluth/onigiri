@@ -1,5 +1,11 @@
 # onigiri
 
+## 0.2.8
+
+### Patch Changes
+
+- a03c4ae: Menu checking
+
 ## 0.2.7
 
 ### Patch Changes
