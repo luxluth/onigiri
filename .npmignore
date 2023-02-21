@@ -1,8 +1,6 @@
-.changeset
-.github
-assets
-CHANGELOG.md
-tsconfig.json
-src
-tsconfig.json
-pnpm-lock.yaml
+*
+!package.json
+!dist/**/*
+!CHANGELOG.md
+!README.md
+!LICENSE

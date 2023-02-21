@@ -1173,14 +1173,19 @@ class Onigiri {
         player.style.cssText += this.Options.css ? this.Options.css : '';
     }
 
-    pauseOverlay(elem: HTMLDivElement) {
-    }
+    // pauseOverlay(elem: HTMLDivElement) {
+    // }
 
     controlsHtml(pl: HTMLDivElement) {
         // if next not in Options.controls remove the element from the dom with the class .onigiri-next
         if (!this.Options.controls?.includes("next")) {
             let next = pl.querySelector(".onigiri-next") as HTMLButtonElement;
             next.remove();
+        }
+
+        if (!this.Options.menu) {
+            let menuIcon = pl.querySelector(".onigiri-settings") as HTMLButtonElement;
+            menuIcon.remove();
         }
 
     }
