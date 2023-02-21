@@ -21,13 +21,16 @@
     "license": "MIT",
     "main": "dist/index.js",
     "module": "dist/index.mjs",
-    "types": ["dist/index.d.ts", "dist/menu/index.d.ts"],
-    "version": "0.2.6",
+    "types": [
+        "dist/index.d.ts",
+        "dist/menu/index.d.ts"
+    ],
+    "version": "0.2.7",
     "scripts": {
         "build": "tsup --entry src/index.ts --entry src/menu/index.ts --format cjs,esm --dts",
         "dev": "tsup --entry src/index.ts --entry src/menu/index.ts --watch --format cjs,esm --dts",
         "lint": "tsc",
-        "release": "pnpm lint && pnpm build && changeset publish" 
+        "release": "pnpm lint && pnpm build && changeset publish"
     },
     "devDependencies": {
         "@changesets/cli": "^2.26.0",
