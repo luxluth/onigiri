@@ -1,6 +1,7 @@
 {
     "name": "@luxluth/onigiri",
     "description": "A simple video player for the web",
+    "private": false,
     "keywords": [
         "video",
         "player",
