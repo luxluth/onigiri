@@ -1,5 +1,11 @@
 # onigiri
 
+## 0.2.10
+
+### Patch Changes
+
+- 922949a: Exports resolve
+
 ## 0.2.9
 
 ### Patch Changes
