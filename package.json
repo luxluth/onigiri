@@ -19,8 +19,6 @@
     "url": "https://github.com/luxluth/onigiri/issues"
   },
   "license": "MIT",
-  "main": "dist/index",
-  "module": "dist/index.mjs",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
