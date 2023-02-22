@@ -330,18 +330,6 @@ class MenuBuilder {
 
 }
 
-let nestedItem = new Item("top")
-
-let menu = new MenuBuilder()
-        .addItem("lol")
-        .addItem("mdr")
-        .addRange("volume", null)
-        .add(nestedItem)
-        .build()
-
-console.log(menu.items)
-
-
 export {
     Item,
     Choice,
