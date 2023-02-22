@@ -9,22 +9,22 @@ class Item {
     }
 
     render(): HTMLDivElement {
-        this.html = new HTMLDivElement()
+        this.html = document.createElement("div") as HTMLDivElement
         this.html.className = "onigiri-menu-item"
 
         if (this.icon) {
-            let ic = new HTMLDivElement()
-            let iconImage = new HTMLImageElement()
+            let ic = document.createElement("div") as HTMLDivElement
+            let iconImage = document.createElement("img") as HTMLImageElement
             iconImage.src = this.icon
             ic.append(iconImage)
             this.html.append(ic)
         }
 
-        let dscrp = new HTMLDivElement()
+        let dscrp = document.createElement("div") as HTMLDivElement
         dscrp.innerText = this.label
-        
+
         this.html.append(dscrp)
-        
+
         this.html.addEventListener("click", () => {
             // Send a custom event itemClick
             this.html?.dispatchEvent(new CustomEvent("itemClick", { detail: this }))
@@ -51,9 +51,9 @@ class RangeItem extends Item {
     maxRange: number;
     defaultRange: number;
     constructor(
-        label: string, 
-        icon: string | null=null, 
-        maxRange: number=1, 
+        label: string,
+        icon: string | null=null,
+        maxRange: number=1,
         defaultRange: number=0.5
     ) {
         super(label, icon)
@@ -62,22 +62,22 @@ class RangeItem extends Item {
     }
 
     render(): HTMLDivElement {
-        this.html = new HTMLDivElement()
+        this.html = document.createElement("div") as HTMLDivElement
         this.html.className = "onigiri-menu-item-range"
 
         if (this.icon) {
-            let ic = new HTMLDivElement()
-            let iconImage = new HTMLImageElement()
+            let ic = document.createElement("div") as HTMLDivElement
+            let iconImage = document.createElement("img") as HTMLImageElement
             iconImage.src = this.icon
             ic.append(iconImage)
             this.html.append(ic)
         }
 
-        
-        let dscrp = new HTMLDivElement()
+
+        let dscrp = document.createElement("div") as HTMLDivElement
         dscrp.innerText = this.label
 
-        let range = new HTMLInputElement()
+        let range = document.createElement("input") as HTMLInputElement
         range.type = "range"
         range.min = "0"
         range.max = this.maxRange.toString()
@@ -105,13 +105,13 @@ class ChoiceItem extends Item {
         label: string,
         icon: string | null = null,
         choices: Choice[] = [],
-        currentChoice: number | null = null 
+        currentChoice: number | null = null
     ) {
         super(label, icon)
         this.choices = choices
         this.currentChoice = currentChoice
     }
-    
+
     getCurrent() {
         if (this.currentChoice) { return this.choices[this.currentChoice] }
         return null
@@ -131,28 +131,28 @@ class ChoiceItem extends Item {
     }
 
     render(): HTMLDivElement {
-        this.html = new HTMLDivElement()
+        this.html = document.createElement("div") as HTMLDivElement
         this.html.className = "onigiri-menu-item-choice"
 
         if (this.icon) {
-            let ic = new HTMLDivElement()
-            let iconImage = new HTMLImageElement()
+            let ic = document.createElement("div") as HTMLDivElement
+            let iconImage = document.createElement("img") as HTMLImageElement
             iconImage.src = this.icon
             ic.append(iconImage)
             this.html.append(ic)
         }
 
-        let dscrp = new HTMLDivElement()
+        let dscrp = document.createElement("div") as HTMLDivElement
         dscrp.innerText = this.label
 
-        let choice = new HTMLDivElement()
+        let choice = document.createElement("div") as HTMLDivElement
         choice.className = "onigiri-menu-item-choice-current"
         let current = this.getCurrent()
         choice.innerText = current?.label || "Unknown"
-        
-        let openIcon = new HTMLDivElement()
+
+        let openIcon = document.createElement("div") as HTMLDivElement
         openIcon.className = "onigiri-menu-item-choice-open"
-        let openIconImage = new SVGElement()
+        let openIconImage = document.createElement("svg") as unknown as SVGElement
         // create attributes
         openIconImage.setAttribute("viewBox", "0 0 500 500")
         openIconImage.setAttribute("xmlns", "http://www.w3.org/2000/svg")
@@ -167,10 +167,10 @@ class ChoiceItem extends Item {
 
         this.html.addEventListener("click", () => {
             this.activated = true
-            let choices = new HTMLDivElement()
+            let choices = document.createElement("div") as HTMLDivElement
             choices.className = "onigiri-menu-item-choice-choices"
             this.choices.forEach((choice, i) => {
-                let choiceDiv = new HTMLDivElement()
+                let choiceDiv = document.createElement("div") as HTMLDivElement
                 choiceDiv.className = "onigiri-menu-item-choice-choice"
                 choiceDiv.innerText = choice.label || "Unknown"
                 choiceDiv.addEventListener("click", () => {
@@ -188,17 +188,17 @@ class ChoiceItem extends Item {
 }
 
 class ToogleItem extends Item {
-    title: string = "Toogle" 
-    state: boolean = true 
+    title: string = "Toogle"
+    state: boolean = true
 
     constructor(
-        title: string, 
+        title: string,
         icon: string | null = null,
         state: boolean
     ) {
         super(title, icon)
         this.title = title
-        this.state = state    
+        this.state = state
     }
 
     toogle() {
@@ -206,30 +206,30 @@ class ToogleItem extends Item {
     }
 
     render(): HTMLDivElement {
-        this.html = new HTMLDivElement()
+        this.html = document.createElement("div") as HTMLDivElement
         this.html.className = "onigiri-menu-item-toogle"
 
         if (this.icon) {
-            let ic = new HTMLDivElement()
-            let iconImage = new HTMLImageElement()
+            let ic = document.createElement("div") as HTMLDivElement
+            let iconImage = document.createElement("img") as HTMLImageElement
             iconImage.src = this.icon
             ic.append(iconImage)
             this.html.append(ic)
         }
 
-        let dscrp = new HTMLDivElement()
+        let dscrp = document.createElement("div") as HTMLDivElement
         dscrp.innerText = this.title
 
-        let switchElem = new HTMLLabelElement()
+        let switchElem = document.createElement("label") as HTMLLabelElement
         switchElem.className = "onigiri-menu-item-toogle-switch"
-        let switchInput = new HTMLInputElement()
+        let switchInput = document.createElement("input") as HTMLInputElement
         switchInput.type = "checkbox"
         switchInput.checked = this.state
-        let switchSpan = new HTMLSpanElement()
+        let switchSpan = document.createElement("span") as HTMLSpanElement
         switchSpan.className = "onigiri-menu-item-toogle-slider"
         switchElem.append(switchInput)
         switchElem.append(switchSpan)
-        
+
         this.html.append(dscrp)
         this.html.append(switchElem)
 
@@ -250,7 +250,7 @@ class Menu {
     }
 
     addItem(item: Item) {
-        this.items = [...this.items, item] 
+        this.items = [...this.items, item]
     }
 
     removeItem(item: Item) {
@@ -258,7 +258,7 @@ class Menu {
     }
 
     render(): HTMLDivElement {
-        let menu = new HTMLDivElement()
+        let menu = document.createElement("div") as HTMLDivElement
         menu.className = "onigiri-menu"
 
         this.items.forEach(item => {
@@ -284,9 +284,9 @@ class MenuBuilder {
     }
 
     addRange(
-        label: string, 
-        icon: string | null=null, 
-        maxRange: number=1, 
+        label: string,
+        icon: string | null=null,
+        maxRange: number=1,
         defaultRange: number=0.5
     ) {
         this.menu.addItem(new RangeItem(label, icon, maxRange, defaultRange))
@@ -297,37 +297,37 @@ class MenuBuilder {
         label: string,
         icon: string | null = null,
         choices: Choice[] = [],
-        currentChoice: number | null = null 
+        currentChoice: number | null = null
     ) {
         this.menu.addItem(new ChoiceItem(label, icon, choices, currentChoice))
         return this
     }
 
     addToogle(
-        title: string, 
+        title: string,
         icon: string | null = null,
         state: boolean = true
     ) {
         this.menu.addItem(new ToogleItem(title, icon, state))
         return this
     }
-    
+
     add(item: Item) {
         this.menu.addItem(item)
         return this
     }
-    
+
     addListOfItems(items: Item[]) {
         items.forEach((item) => {
             this.menu.addItem(item)
         })
         return this
     }
-    
+
     build() {
         return this.menu
     }
-    
+
 }
 
 let nestedItem = new Item("top")
@@ -339,7 +339,7 @@ let menu = new MenuBuilder()
         .add(nestedItem)
         .build()
 
-console.log(menu.items)   
+console.log(menu.items)
 
 
 export {
