@@ -1,5 +1,11 @@
 # onigiri
 
+## 0.2.12
+
+### Patch Changes
+
+- 28cfd62: DomDom
+
 ## 0.2.11
 
 ### Patch Changes
