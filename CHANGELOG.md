@@ -1,5 +1,11 @@
 # onigiri
 
+## 0.2.13
+
+### Patch Changes
+
+- 9f4ed4e: Icon optional
+
 ## 0.2.12
 
 ### Patch Changes
