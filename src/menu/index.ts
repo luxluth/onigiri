@@ -1,10 +1,10 @@
 class Item {
     label: string
-    icon: string | null
+    icon: string
     html: HTMLDivElement | null = null
-    constructor(label: string, icon: string | null=null) {
+    constructor(label: string, icon?: string) {
         this.label = label
-        this.icon = icon
+        this.icon = icon || ""
         return this
     }
 
@@ -26,7 +26,6 @@ class Item {
         this.html.append(dscrp)
 
         this.html.addEventListener("click", () => {
-            // Send a custom event itemClick
             this.html?.dispatchEvent(new CustomEvent("itemClick", { detail: this }))
         })
 
@@ -36,13 +35,13 @@ class Item {
 }
 
 class Choice {
-    label: string | null = null
-    icon: string | null = null
+    label: string
+    icon: string
     value: any
 
-    constructor(label: string | null, icon: string | null, value: any) {
+    constructor(label: string, value: any, icon?: string) {
         this.label = label
-        this.icon = icon
+        this.icon = icon || ""
         this.value = value
     }
 }
@@ -52,13 +51,13 @@ class RangeItem extends Item {
     defaultRange: number;
     constructor(
         label: string,
-        icon: string | null=null,
-        maxRange: number=1,
-        defaultRange: number=0.5
+        maxRange?: number,
+        defaultRange?: number,
+        icon?: string,
     ) {
-        super(label, icon)
-        this.maxRange = maxRange
-        this.defaultRange = defaultRange
+        super(label, icon || "")
+        this.maxRange = maxRange || 100
+        this.defaultRange = defaultRange || 0
     }
 
     render(): HTMLDivElement {
@@ -88,7 +87,6 @@ class RangeItem extends Item {
         this.html.append(range)
 
         this.html.addEventListener("click", () => {
-            // Send a custom event itemClick
             this.html?.dispatchEvent(new CustomEvent("itemClick", { detail: this }))
         })
 
@@ -103,11 +101,11 @@ class ChoiceItem extends Item {
 
     constructor(
         label: string,
-        icon: string | null = null,
         choices: Choice[] = [],
-        currentChoice: number | null = null
+        currentChoice: number,
+        icon?: string,
     ) {
-        super(label, icon)
+        super(label, icon || "")
         this.choices = choices
         this.currentChoice = currentChoice
     }
@@ -188,15 +186,15 @@ class ChoiceItem extends Item {
 }
 
 class ToogleItem extends Item {
-    title: string = "Toogle"
-    state: boolean = true
+    title: string
+    state: boolean
 
     constructor(
         title: string,
-        icon: string | null = null,
-        state: boolean
+        state: boolean,
+        icon?: string
     ) {
-        super(title, icon)
+        super(title, icon || "")
         this.title = title
         this.state = state
     }
@@ -279,36 +277,36 @@ class MenuBuilder {
     }
 
     addItem(label: string, icon?: string) {
-        icon? this.menu.addItem(new Item(label, icon)) : this.menu.addItem(new Item(label, null))
+        icon? this.menu.addItem(new Item(label, icon)) : this.menu.addItem(new Item(label))
         return this
     }
 
     addRange(
         label: string,
-        icon: string | null=null,
         maxRange: number=1,
-        defaultRange: number=0.5
+        defaultRange: number=0.5,
+        icon?: string,
     ) {
-        this.menu.addItem(new RangeItem(label, icon, maxRange, defaultRange))
+        this.menu.addItem(new RangeItem(label, maxRange, defaultRange, icon))
         return this
     }
 
     addChoice(
         label: string,
-        icon: string | null = null,
-        choices: Choice[] = [],
-        currentChoice: number | null = null
+        choices: Choice[],
+        currentChoice: number,
+        icon?: string,
     ) {
-        this.menu.addItem(new ChoiceItem(label, icon, choices, currentChoice))
+        this.menu.addItem(new ChoiceItem(label, choices, currentChoice, icon))
         return this
     }
 
     addToogle(
         title: string,
-        icon: string | null = null,
-        state: boolean = true
+        state: boolean,
+        icon?: string,
     ) {
-        this.menu.addItem(new ToogleItem(title, icon, state))
+        this.menu.addItem(new ToogleItem(title, state, icon))
         return this
     }
 
