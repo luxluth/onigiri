@@ -1,5 +1,11 @@
 # onigiri
 
+## 0.2.14
+
+### Patch Changes
+
+- 2fd5140: MenuBuilder function
+
 ## 0.2.13
 
 ### Patch Changes
