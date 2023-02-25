@@ -1,5 +1,11 @@
 # onigiri
 
+## 0.2.18
+
+### Patch Changes
+
+- 0bd11ec: Package import
+
 ## 0.2.17
 
 ### Patch Changes
