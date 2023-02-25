@@ -21,22 +21,43 @@ npm install @luxluth/onigiri
 
 ```
 
-```ts
-import Onigiri from "@luxluth/onigiri"
+## Example using Svelte
 
-const player = new Onigiri("#video",{
+```svelte
+<script lang="ts">
+    import { onMount } from "svelte";
+    import Onigiri from "@luxluth/onigiri"
+
+    onMount(async () => {
+        const player = new Onigiri("#video",{
             source : {
-                src : "src/video/file_example1920.mp4",
+                src : '/src/video/omg.mp4',
                 type : "video/mp4"
             },
             css : "width: 100%; height: 100vh;",
-            title : "Onigiri",
+            videoName : "OMG",
+            tracks: [
+                {
+                    kind: "subtitles",
+                    label: "English",
+                    srclang: "en",
+                    default: true,
+                    src: "/src/en.vtt",
+                    type: "text/vtt",
+
+                },
+            ]
         })
 
-await player.load()
+        await player.load()
+    })
+</script>
+
+<div id="video">
+</div>
 ```
 
-![example](https://raw.githubusercontent.com/luxluth/onigiri/main/assets/exemple.png)
+![example](https://raw.githubusercontent.com/luxluth/onigiri/main/assets/exemple2.png)
 
 ## License
 
