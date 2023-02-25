@@ -328,6 +328,10 @@ class MenuBuilder {
 
 }
 
+const menuBuilder = () => {
+    return new MenuBuilder()
+}
+
 export {
     Item,
     Choice,
@@ -335,5 +339,6 @@ export {
     RangeItem,
     ToogleItem,
     Menu,
-    MenuBuilder
+    menuBuilder,
+    MenuBuilder,
 }

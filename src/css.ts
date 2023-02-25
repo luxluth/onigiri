@@ -386,8 +386,8 @@ button {
     background: none;
     outline: none;
     cursor: pointer;
-    height: 2.5em;
-    width: 2.5em;
+    height: 1.5em;
+    width: 1.5em;
 }
 
 button svg {
