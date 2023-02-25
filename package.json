@@ -23,13 +23,13 @@
     "./package.json": "./package.json",
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "module": "./dist/index.mjs",
+      "main": "./dist/index.js"
     },
     "./menu": {
       "types": "./dist/menu/index.d.ts",
-      "import": "./dist/menu/index.mjs",
-      "require": "./dist/menu/index.js"
+      "module": "./dist/menu/index.mjs",
+      "main": "./dist/menu/index.js"
     }
   },
   "version": "0.2.15",
