@@ -46,13 +46,13 @@ class Onigiri {
     // load the player
     async load() {
         // check if the source is valid
-        if (this.Options.source) {
-            let isReachable = await this.checkReachable(this.Options.source.src);
-            if (!isReachable) {
-                this.showWarning("Source not reachable", "The source is not reachable, please check the source url.");
-                return;
-            }
-        }
+        // if (this.Options.source) {
+        //     let isReachable = await this.checkReachable(this.Options.source.src);
+        //     if (!isReachable) {
+        //         this.showWarning("Source not reachable", "The source is not reachable, please check the source url.");
+        //         return;
+        //     }
+        // }
         // if quality options is an empty array, then set it to null
         if (this.Options.quality?.options.length === 0) {
             console.log("Quality options is empty, setting it to null");
@@ -1061,16 +1061,16 @@ class Onigiri {
         return str.substring(0, n).trim() + "...";
     }
 
-    public async checkReachable(url: string) {
-        // check if the video is reachable
-        try {
-            const response = await fetch(url);
-            return response.ok;
-        }
-        catch (error) {
-            return false;
-        }
-    }
+    // public async checkReachable(url: string) {
+    //     // check if the video is reachable
+    //     try {
+    //         const response = await fetch(url);
+    //         return response.ok;
+    //     }
+    //     catch (error) {
+    //         return false;
+    //     }
+    // }
 
 
 }
