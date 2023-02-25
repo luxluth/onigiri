@@ -1,5 +1,11 @@
 # onigiri
 
+## 0.2.16
+
+### Patch Changes
+
+- 517a099: Try solve path
+
 ## 0.2.15
 
 ### Patch Changes
