@@ -1,5 +1,11 @@
 # onigiri
 
+## 0.2.15
+
+### Patch Changes
+
+- 382efe9: Is rechable remove
+
 ## 0.2.14
 
 ### Patch Changes
