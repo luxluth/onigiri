@@ -1,5 +1,11 @@
 # onigiri
 
+## 0.2.17
+
+### Patch Changes
+
+- 795a866: Fix broken package
+
 ## 0.2.16
 
 ### Patch Changes
