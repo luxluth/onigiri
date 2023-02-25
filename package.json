@@ -31,7 +31,7 @@
       "require": "./dist/menu/index.js"
     }
   },
-  "version": "0.2.13",
+  "version": "0.2.14",
   "devDependencies": {
     "@changesets/cli": "^2.26.0",
     "terser": "^5.16.4",
