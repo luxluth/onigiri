@@ -179,7 +179,10 @@ type Options = {
     season?: number,
     /** VideoName if there is no episodeName */
     videoName?: string,
-
+    /**
+     * alternateName display if no episode number
+     */
+    alternateName?: string,
     /**
      * onQuit describe which action to do when the player is close
      * `emitEvent` or `redirectTo`

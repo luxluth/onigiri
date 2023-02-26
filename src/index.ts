@@ -1,5 +1,13 @@
 import { onigiricss } from './css'
 import { PlayerBaseHtml, onigiriRightTopActions } from './html'
+import {
+    parseVTTSettings,
+    turnOnSubtitles,
+    turnOffSubtitles,
+    truncate,
+    formatTime,
+    getBrowser
+} from './utils'
 
 import type {
     Options,
@@ -67,7 +75,7 @@ class Onigiri {
         // set the html
         pl.innerHTML = PlayerBaseHtml;
         // browser
-        this.browser = this.getBrowser();
+        this.browser = getBrowser();
         // overlay
         this.overlay = pl.querySelector(".onigiri-overlay") as HTMLDivElement;
         // set the controls
@@ -135,7 +143,7 @@ class Onigiri {
                             if (subtitle.type === 'cue') {
                                 let cue = new VTTCue(subtitle.data.start / 1000, subtitle.data.end / 1000, subtitle.data.text);
                                 if (subtitle.data.settings) {
-                                    cue = this.parseVTTSettings(subtitle.data.settings, cue);
+                                    cue = parseVTTSettings(subtitle.data.settings, cue);
                                 }
                                 textTrack.addCue(cue);
                             }
@@ -196,7 +204,7 @@ class Onigiri {
                 target.classList.toggle('selected');
                 this.animateClickAction(target);
                 // turn off the subtitles
-                this.turnOffSubtitles(video, captionsButton);
+                turnOffSubtitles(video, captionsButton);
                 console.log('off');
             } else {
                 // remove the selected class from all the buttons
@@ -211,7 +219,7 @@ class Onigiri {
                 target.classList.add('selected');
                 this.animateClickAction(target);
                 // turn on the subtitles
-                this.turnOnSubtitles(pl, video, target.getAttribute('data-subtitle') as string, captionsButton);
+                turnOnSubtitles(this, pl, video, target.getAttribute('data-subtitle') as string, captionsButton);
                 console.log('on ' + target.dataset.subtitle);
             }
         });
@@ -228,7 +236,7 @@ class Onigiri {
             }
         }
 
-        this.turnOnSubtitles(pl, video, defaultTrack, captionsButton);
+        turnOnSubtitles(this, pl, video, defaultTrack, captionsButton);
         // toggle selected class on the defaultTrack button
         const subBoxListButtons = subBoxList.querySelectorAll('button');
         // @ts-ignore
@@ -275,7 +283,7 @@ class Onigiri {
             const duration = pl.querySelector(".onigiri-total-time span") as HTMLSpanElement;
             // @ts-ignore
             if (!this.Options.isLive) {
-                duration.innerText = this.formatTime(video.duration);
+                duration.innerText = formatTime(video.duration);
             }
         });
 
@@ -290,17 +298,15 @@ class Onigiri {
             const loadingBar = pl.querySelector(".onigiri-loading") as HTMLDivElement;
             loadingBar.classList.remove('load');
         });
-        if (this.browser !== 'safari') {
-            video.play();
-        } else {
-            video.pause();
-        }
-        // get the video bitrate
-        pl.onmousemove = (e) => {
-            this.lastMousePosition = { x: e.clientX, y: e.clientY };
+
+        try {
+            video.play()
+        } catch {
+            video.pause()
         }
 
-        pl.addEventListener("mousemove", (e) => {
+        pl.onmousemove = (e) => {
+            this.lastMousePosition = { x: e.clientX, y: e.clientY };
             // show the controls
             this.showControls(pl);
             // show mouse
@@ -311,10 +317,10 @@ class Onigiri {
                 if (this.lastMousePosition.x === currentMousePosition.x && this.lastMousePosition.y === currentMousePosition.y) {
                     this.hideControls(pl);
                     // hide mouse
-                    pl.style.cursor = "none";
+                    if (this.controlBarState.isHideable) pl.style.cursor = "none";
                 }
             }, 2000);
-        });
+        }
 
         pl.addEventListener("mouseleave", () => {
             // hide the controls
@@ -331,6 +337,7 @@ class Onigiri {
         video.addEventListener("click", () => {
             // show the controls
             this.showControls(pl);
+            this.togglePlayPause(video)
         });
 
         video.addEventListener("pause", () => {
@@ -359,6 +366,7 @@ class Onigiri {
         });
 
         // overlay
+        let epsInit = false
         if (this.Options.videoName) {
             this.overlay.innerHTML += `
                     <div class="onigiri-top-left-infos">
@@ -392,6 +400,7 @@ class Onigiri {
                     </div>
                     `;
             if (this.Options.episode) {
+                epsInit = true
                 const episodeInfos = pl.querySelector(".onigiri-episode-infos") as HTMLDivElement;
                 episodeInfos.innerHTML += `
                         <div class="onigiri-eps">
@@ -402,11 +411,11 @@ class Onigiri {
                     const eps = pl.querySelector(".onigiri-eps") as HTMLDivElement;
                     eps.innerHTML += `
                             <span class="sep-eps">-</span>
-                            <span class="onigiri-eps-title">${this.truncate(40, this.Options.episodeName)}</span>
+                            <span class="onigiri-eps-title">${truncate(40, this.Options.episodeName)}</span>
                             `;
                 }
             }
-        } else if (this.Options.episode) {
+        } else if (this.Options.episode && !epsInit) {
             const topLeftInfos = pl.querySelector(".onigiri-top-left-infos") as HTMLDivElement;
             topLeftInfos.innerHTML += `
                     <div class="onigiri-episode-infos">
@@ -422,6 +431,14 @@ class Onigiri {
                         <span class="onigiri-eps-title">${this.Options.episodeName}</span>
                         `;
             }
+        }
+        if (this.Options.alternateName && !epsInit) {
+            const alternateName = pl.querySelector(".onigiri-episode-infos") as HTMLDivElement;
+            alternateName.innerHTML += `
+                        <div class="onigiri-eps">
+                            <span class="onigiri-eps-title">${this.Options.alternateName}</span>
+                        </div>
+                        `;
         }
         // right panel
         this.overlay.innerHTML += onigiriRightTopActions;
@@ -541,9 +558,9 @@ class Onigiri {
             const currentTime = pl.querySelector(".onigiri-current-time span") as HTMLSpanElement;
             const totTime = pl.querySelector(".onigiri-total-time span") as HTMLSpanElement;
             if (!this.Options.isLive) {
-                totTime.innerText = `-${this.formatTime(video.duration - video.currentTime)}`;
+                totTime.innerText = `-${formatTime(video.duration - video.currentTime)}`;
             }
-            currentTime.innerText = this.formatTime(video.currentTime);
+            currentTime.innerText = formatTime(video.currentTime);
             const progress = pl.querySelector(".onigiri-timeline") as HTMLDivElement;
             const p = pl.querySelector(".onigiri") as HTMLDivElement;
             // --progress-position is between 0 and 1
@@ -629,42 +646,6 @@ class Onigiri {
         }, 5000);
     }
 
-    parseVTTSettings(settings: string, cue: VTTCue): VTTCue {
-        const settingsArray = settings.split(" ");
-        settingsArray.forEach((setting) => {
-            const settingArray = setting.split(":");
-            const key = settingArray[0];
-            const value = settingArray[1];
-            switch (key) {
-                case "line":
-                    //@ts-ignore
-                    cue.line = parseInt(value);
-                    break;
-                case "align":
-                    //@ts-ignore
-                    cue.align = value;
-                    break;
-                case "position":
-                    //@ts-ignore
-                    cue.position = parseInt(value);
-                    break;
-                case "size":
-                    //@ts-ignore
-                    cue.size = parseInt(value);
-                    break;
-                case "vertical":
-                    //@ts-ignore
-                    cue.vertical = value;
-                    break;
-                case "region":
-                    //@ts-ignore
-                    cue.region = value;
-                    break;
-            }
-        });
-        return cue;
-    }
-
     seekForwardFive(video: HTMLVideoElement) {
         video.currentTime += 5;
     }
@@ -682,90 +663,6 @@ class Onigiri {
         text = text.replace(/<i>(.*?)<\/i>/g, '<em>$1</em>');
 
         return text;
-    }
-
-    turnOnSubtitles(pl: HTMLDivElement, video: HTMLVideoElement, lang: string, subButton: HTMLButtonElement) {
-        // console.log("------------------------")
-        const subtitleBox = pl.querySelector('.onigiri-subs') as HTMLDivElement;
-        const subtitleBoxText = subtitleBox.querySelector('.onigiri-subText') as HTMLParagraphElement;
-        // console.log(lang);
-        // video.textTracks on track change
-        video.textTracks.onchange = () => {
-            // console.log("track changed");
-
-            let numberHidded = 0;
-            for (let i = 0; i < video.textTracks.length; i++) {
-                // @ts-ignore
-                if (video.textTracks[i].mode === "hidden") {
-                    numberHidded++;
-                }
-            }
-            if (numberHidded === video.textTracks.length) {
-                subtitleBox.style.display = "none";
-            } else {
-                this.seekBackwardFive(video);
-            }
-        };
-        for (let i = 0; i < video.textTracks.length; i++) {
-                // @ts-ignore
-            if (video.textTracks[i].language === lang) {
-                // @ts-ignore
-                video.textTracks[i].mode = "showing";
-                // @ts-ignore
-                video.textTracks[i].oncuechange = () => {
-                    //@ts-ignore
-                    if (video.textTracks[i].activeCues[0]) {
-                        subtitleBox.style.display = "block";
-                        //@ts-ignore
-                        if (video.textTracks[i].activeCues[0].line) {
-                            //@ts-ignore
-                            subtitleBox.style.top = `${video.textTracks[i].activeCues[0].line}%`;
-                        }
-                        //@ts-ignore
-                        if (video.textTracks[i].activeCues[0].align) {
-                            //@ts-ignore
-                            subtitleBox.style.textAlign = video.textTracks[i].activeCues[0].align;
-                        }
-                        //@ts-ignore
-                        if (video.textTracks[i].activeCues[0].position) {
-                            //@ts-ignore
-                            subtitleBox.style.left = `${video.textTracks[i].activeCues[0].position}%`;
-                        }
-                        //@ts-ignore
-                        if (video.textTracks[i].activeCues[0].size) {
-                            //@ts-ignore
-                            subtitleBox.style.fontSize = `${video.textTracks[i].activeCues[0].size}%`;
-                        }
-                        //@ts-ignore
-                        if (video.textTracks[i].activeCues[0].vertical) {
-                            //@ts-ignore
-                            subtitleBox.style.writingMode = video.textTracks[i].activeCues[0].vertical;
-                        }
-                        //@ts-ignore
-                        if (video.textTracks[i].activeCues[0].region) {
-                            //@ts-ignore
-                            subtitleBox.style.top = video.textTracks[i].activeCues[0].region;
-                        }
-                        //@ts-ignore
-                        subtitleBoxText.innerHTML = this.convertToHtml(video.textTracks[i].activeCues[0].text);
-
-                    } else {
-                        subtitleBox.style.display = 'none';
-                        subtitleBoxText.innerHTML = '';
-                    }
-                }
-            } else {
-                // @ts-ignore
-                video.textTracks[i].mode = "hidden";
-                // remove event listener
-                // @ts-ignore
-                video.textTracks[i].oncuechange = null;
-            }
-        }
-        // console.log(video.textTracks);
-        // console.log("------------------------")
-        subButton.classList.remove("hided");
-        subButton.classList.add("showed");
     }
 
     bindkeyDownEventForVideo(video: HTMLVideoElement, pl: HTMLDivElement) {
@@ -817,18 +714,6 @@ class Onigiri {
         } else {
             video.volume = 0;
         }
-    }
-
-    turnOffSubtitles(video: HTMLVideoElement, subButton: HTMLButtonElement) {
-        for (let i = 0; i < video.textTracks.length; i++) {
-            // @ts-ignore
-            video.textTracks[i].mode = "hidden";
-            // remove event listener
-            // @ts-ignore
-            video.textTracks[i].oncuechange = null;
-        }
-        subButton.classList.remove("showed");
-        subButton.classList.add("hided");
     }
 
     hideControls(pl: HTMLDivElement) {
@@ -950,7 +835,7 @@ class Onigiri {
 
     toogleFullscreen(player: HTMLDivElement) {
         // get browser name
-        const browser = this.getBrowser();
+        const browser = getBrowser();
         // toggle fullscreen if not in fullscreen
         if (!document.fullscreenElement) {
             switch (browser) {
@@ -999,45 +884,12 @@ class Onigiri {
         }
     }
 
-    getBrowser() {
-        // get browser name
-        const browser = navigator.userAgent.toLowerCase();
-        if (browser.indexOf("chrome") > -1) {
-            return "chrome";
-        } else if (browser.indexOf("firefox") > -1) {
-            return "firefox";
-        } else if (browser.indexOf("safari") > -1) {
-            return "safari";
-        } else if (browser.indexOf("opera") > -1) {
-            return "opera";
-        } else if (browser.indexOf("msie") > -1) {
-            return "ie";
-        } else {
-            return "unknown";
-        }
-    }
-
-    formatTime(time: number) {
-        // format time
-        const hours = Math.floor(time / 60 / 60);
-        const minutes = Math.floor(time / 60) - hours * 60;
-        const seconds = Math.floor(time - minutes * 60 - hours * 60 * 60);
-        const formattedTime = [hours, minutes, seconds]
-            .map((v) => (v < 10 ? `0${v}` : v))
-            .filter((v, i) => v !== "00" || i > 0)
-            .join(":");
-        return formattedTime;
-    }
-
     setCss(player: HTMLVideoElement | HTMLDivElement) {
         // add the default css
         player.style.cssText = onigiricss;
         // set the css of the player
         player.style.cssText += this.Options.css ? this.Options.css : '';
     }
-
-    // pauseOverlay(elem: HTMLDivElement) {
-    // }
 
     controlsHtml(pl: HTMLDivElement) {
         // if next not in Options.controls remove the element from the dom with the class .onigiri-next
@@ -1052,26 +904,6 @@ class Onigiri {
         }
 
     }
-
-    public truncate(n: number, str: string) {
-        // convert the str to a string of n char
-        if (str.length <= n) {
-            return str;
-        }
-        return str.substring(0, n).trim() + "...";
-    }
-
-    // public async checkReachable(url: string) {
-    //     // check if the video is reachable
-    //     try {
-    //         const response = await fetch(url);
-    //         return response.ok;
-    //     }
-    //     catch (error) {
-    //         return false;
-    //     }
-    // }
-
 
 }
 
