@@ -32,7 +32,7 @@
       "require": "./dist/menu/index.mjs"
     }
   },
-  "version": "0.2.19",
+  "version": "0.2.20",
   "devDependencies": {
     "@changesets/cli": "^2.26.0",
     "terser": "^5.16.4",

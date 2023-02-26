@@ -1,5 +1,11 @@
 # onigiri
 
+## 0.2.20
+
+### Patch Changes
+
+- b360cb3: Subtitle don't show
+
 ## 0.2.19
 
 ### Patch Changes
