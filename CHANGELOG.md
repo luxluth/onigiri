@@ -1,5 +1,11 @@
 # onigiri
 
+## 0.2.21
+
+### Patch Changes
+
+- a0c8ef6: AlternateName fix
+
 ## 0.2.20
 
 ### Patch Changes
