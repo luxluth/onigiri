@@ -1,5 +1,11 @@
 # onigiri
 
+## 0.2.19
+
+### Patch Changes
+
+- 04722ea: Improvements here and there
+
 ## 0.2.18
 
 ### Patch Changes
