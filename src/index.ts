@@ -30,7 +30,7 @@ import type {
  * ```html
  * <div id="video"></div>
  * ```
- * 
+ *
  * The load function is asynchronus. It needs to
  * access the `DOM`
  */
@@ -668,17 +668,6 @@ class Onigiri {
 
     seekBackwardFive(video: HTMLVideoElement) {
         video.currentTime -= 5;
-    }
-
-    convertToHtml(text: string): string {
-        // \n
-        text = text.replace(/(?:\r \n|\r|\n)/g, '<br>');
-        // <b>bold</b>
-        text = text.replace(/<b>(.*?)<\/b>/g, '<strong>$1</strong>');
-        // <i>italic</i>
-        text = text.replace(/<i>(.*?)<\/i>/g, '<em>$1</em>');
-
-        return text;
     }
 
     bindkeyDownEventForVideo(video: HTMLVideoElement, pl: HTMLDivElement) {

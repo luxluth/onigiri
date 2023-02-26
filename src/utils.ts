@@ -97,7 +97,7 @@ function turnOnSubtitles(O: Onigiri, pl: HTMLDivElement, video: HTMLVideoElement
                         subtitleBox.style.top = video.textTracks[i].activeCues[0].region;
                     }
                     //@ts-ignore
-                    subtitleBoxText.innerHTML = this.convertToHtml(video.textTracks[i].activeCues[0].text);
+                    subtitleBoxText.innerHTML = convertToHtml(video.textTracks[i].activeCues[0].text);
 
                 } else {
                     subtitleBox.style.display = 'none';
@@ -165,6 +165,17 @@ function getBrowser() {
     }
 }
 
+function convertToHtml(text: string): string {
+    // \n
+    text = text.replace(/(?:\r \n|\r|\n)/g, '<br>');
+    // <b>bold</b>
+    text = text.replace(/<b>(.*?)<\/b>/g, '<strong>$1</strong>');
+    // <i>italic</i>
+    text = text.replace(/<i>(.*?)<\/i>/g, '<em>$1</em>');
+
+    return text;
+}
+
 
 
 export {
@@ -174,4 +185,5 @@ export {
     truncate,
     formatTime,
     getBrowser,
+    convertToHtml
 }
