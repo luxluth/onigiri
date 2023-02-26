@@ -17,7 +17,23 @@ import type {
     Chapter
 } from './types'
 
-
+/**
+ * @class `Onigiri`
+ *
+ * This is the class that is used to create the
+ * video player.
+ *
+ * ```ts
+ * const player = new Onigiri("#video", ...)
+ * await player.load()
+ * ```
+ * ```html
+ * <div id="video"></div>
+ * ```
+ * 
+ * The load function is asynchronus. It needs to
+ * access the `DOM`
+ */
 class Onigiri {
     // This class is the video player class.
     QuerySelectorPlayer: string;
