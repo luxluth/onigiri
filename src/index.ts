@@ -432,6 +432,7 @@ class Onigiri {
                 }
             }
         } else if (this.Options.episode && !epsInit) {
+            epsInit = true
             const topLeftInfos = pl.querySelector(".onigiri-top-left-infos") as HTMLDivElement;
             topLeftInfos.innerHTML += `
                     <div class="onigiri-episode-infos">
@@ -449,11 +450,13 @@ class Onigiri {
             }
         }
         if (this.Options.alternateName && !epsInit) {
-            const alternateName = pl.querySelector(".onigiri-episode-infos") as HTMLDivElement;
+            const alternateName = pl.querySelector(".onigiri-top-left-infos") as HTMLDivElement;
             alternateName.innerHTML += `
+                    <div class="onigiri-episode-infos">
                         <div class="onigiri-eps">
                             <span class="onigiri-eps-title">${this.Options.alternateName}</span>
                         </div>
+                    </div>
                         `;
         }
         // right panel
