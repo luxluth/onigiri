@@ -5,10 +5,7 @@
   "keywords": [
     "video",
     "player",
-    "web",
-    "html",
-    "javascript",
-    "typescript"
+    "web"
   ],
   "repository": {
     "type": "git",
@@ -23,15 +20,16 @@
     "./package.json": "./package.json",
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.mjs"
+      "import": "./dist/index.mjs",
+      "default": "./dist/index.js"
     },
     "./menu": {
       "types": "./dist/menu/index.d.ts",
-      "import": "./dist/menu/index.js",
-      "require": "./dist/menu/index.mjs"
+      "import": "./dist/menu/index.mjs",
+      "default": "./dist/menu/index.js"
     }
   },
+  "types" : "./dist/index.d.ts",
   "version": "0.2.21",
   "devDependencies": {
     "@changesets/cli": "^2.26.0",
