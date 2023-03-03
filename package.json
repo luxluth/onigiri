@@ -30,7 +30,7 @@
     }
   },
   "types": "./dist/index.d.ts",
-  "version": "0.2.22",
+  "version": "0.2.23",
   "devDependencies": {
     "@changesets/cli": "^2.26.0",
     "terser": "^5.16.4",
