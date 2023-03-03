@@ -31,30 +31,27 @@ npm install @luxluth/onigiri
     onMount(async () => {
         const player = new Onigiri("#video",{
             source : {
-                src : '/src/video/omg.mp4',
+                src : 'http://localhost:8000/video/dynamite.mp4',
                 type : "video/mp4"
             },
             css : "width: 100%; height: 100vh;",
-            videoName : "OMG",
+            videoName : "Dynamite",
+            alternateName: "BTS",
             tracks: [
                 {
                     kind: "subtitles",
                     label: "English",
                     srclang: "en",
                     default: true,
-                    src: "/src/en.vtt",
+                    src: "/src/assets/dynamite-en.vtt",
                     type: "text/vtt",
-
-                },
-            ]
+                }
+            ],
         })
 
         await player.load()
     })
 </script>
-
-<div id="video">
-</div>
 ```
 
 ![example](https://raw.githubusercontent.com/luxluth/onigiri/main/assets/exemple4.png)
