@@ -57,7 +57,7 @@ npm install @luxluth/onigiri
 </div>
 ```
 
-![example](https://raw.githubusercontent.com/luxluth/onigiri/main/assets/exemple2.png)
+![example](https://raw.githubusercontent.com/luxluth/onigiri/main/assets/exemple4.png)
 
 ## License
 
