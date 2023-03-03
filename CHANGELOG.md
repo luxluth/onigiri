@@ -1,5 +1,11 @@
 # onigiri
 
+## 0.2.23
+
+### Patch Changes
+
+- 1aeebba: Update docs + some changes: No live
+
 ## 0.2.22
 
 ### Patch Changes
