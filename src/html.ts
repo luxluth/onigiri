@@ -37,15 +37,13 @@ export const PlayerBaseHtml = `
     </div>
     <div class="onigiri-controlBar">
       <div class="onigiri-time onigiri-current-time">
-        <span>00:00</span>
+        <span>--:--</span>
       </div>
       <div class="onigiri-timeline-container" style="--progress-position: 0">
         <div class="onigiri-timeline"></div>
       </div>
       <div class="onigiri-time onigiri-total-time">
-      <span>
-        <div class="islive">● LIVE</div>
-      </span>
+      <span>--:--</span>
       </div>
       <!-- captions -->
       <button class="onigiri-captionButton hided">

@@ -42,9 +42,6 @@ type Options = {
         'next'?, // Next track
     ],
 
-    // Set to true if your stream is live
-    isLive?: boolean,
-
     // This is the settings.
     settings?: ['captions', 'quality', 'speed'],
 
@@ -184,14 +181,7 @@ type Options = {
      */
     alternateName?: string,
     /**
-     * onQuit describe which action to do when the player is close
-     * `emitEvent` or `redirectTo`
-     * ```ts
-     * type redirectTo = {
-     *  opt: "redirectTo",
-     *  url: string
-     * }
-     * ```
+     * onQuit describe if an event is emit when the quit button is clicked
      */
     onQuit?: boolean
 

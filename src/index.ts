@@ -17,25 +17,7 @@ import type {
     Chapter
 } from './types'
 
-/**
- * @class `Onigiri`
- *
- * This is the class that is used to create the
- * video player.
- *
- * ```ts
- * const player = new Onigiri("#video", ...)
- * await player.load()
- * ```
- * ```html
- * <div id="video"></div>
- * ```
- *
- * The load function is asynchronus. It needs to
- * access the `DOM`
- */
 class Onigiri {
-    // This class is the video player class.
     QuerySelectorPlayer: string;
     Options: Options;
     isScrubbing: boolean = false;
@@ -59,7 +41,23 @@ class Onigiri {
     browser: string = "";
     volumeCurrentState: VolumeState = "up";
 
-    // This is the constructor.
+    /**
+     * @class `Onigiri`
+     *
+     * This is the class that is used to create the
+     * video player.
+     *
+     * ```ts
+     * const player = new Onigiri("#video", ...)
+     * await player.load()
+     * ```
+     * ```html
+     * <div id="video"></div>
+     * ```
+     *
+     * The load function is asynchronus. It needs to
+     * access the `DOM`
+     */
     constructor(querySelector: string, options: Options) {
         // This is the constructor.
         this.QuerySelectorPlayer = querySelector;
@@ -96,11 +94,7 @@ class Onigiri {
         this.overlay = pl.querySelector(".onigiri-overlay") as HTMLDivElement;
         // set the controls
         this.controlsHtml(pl);
-        if (this.Options.isLive) {
-            // create attribute type on the .onigiri element to be able to type="live"
-            const p = pl.querySelector(".onigiri") as HTMLDivElement;
-            p.setAttribute("type", "live");
-        }
+
         // set the video
         const video = pl.querySelector("#onigiri-video") as HTMLVideoElement;
         if (this.browser === "safari") {
@@ -110,15 +104,11 @@ class Onigiri {
             video.setAttribute("autoplay", "")
             video.setAttribute("playsinline", "");
             video.setAttribute("webkit-playsinline", "");
-            // video.setAttribute("x-webkit-airplay", "allow");
-            // video.setAttribute("x5-video-player-type", "h5");
-            // video.setAttribute("x5-video-player-fullscreen", "true");
-            // video.setAttribute("x5-video-orientation", "landscape");
-
         }
         // set the source
         video.src = this.Options.source.src;
-
+        // set type
+        video.setAttribute("type", this.Options.source.type)
         // bind key events
         this.bindkeyDownEventForVideo(video, pl);
         // console.log(navigator.userAgent);
@@ -133,12 +123,6 @@ class Onigiri {
                         // fetch the subtitles from the src
                         // @ts-ignore
                         const response = await (await fetch(track.src)).json();
-                        // response is an array of objects like this:
-                        // [
-                        //     { "type": "header", "data": "WEBVTT" },
-                        //     { "type": "cue", "data": { "start": 53120, "end": 54780, "text": "On va au boulot ?" } },
-                        //     { "type": "cue", "data": { "start": 76310, "end": 80180, "text": "En coupant du bois,\non se fait 60 000 yens par mois." }
-                        // }, ...]
                         const subBoxList = pl.querySelector('.onigiri-subBox_list') as HTMLDivElement;
                         const subBoxListButton = document.createElement('button');
                         subBoxListButton.classList.add('onigiri-subBox_item');
@@ -164,7 +148,7 @@ class Onigiri {
                                 textTrack.addCue(cue);
                             }
                         }
-                    } else if (track.type === 'text/vtt') {
+                    } if (track.type === 'text/vtt') {
                         // add a new track to the video with the src
                         const trackElement = document.createElement('track');
                         const subBoxList = pl.querySelector('.onigiri-subBox_list') as HTMLDivElement;
@@ -576,9 +560,7 @@ class Onigiri {
         video.addEventListener("timeupdate", () => {
             const currentTime = pl.querySelector(".onigiri-current-time span") as HTMLSpanElement;
             const totTime = pl.querySelector(".onigiri-total-time span") as HTMLSpanElement;
-            if (!this.Options.isLive) {
-                totTime.innerText = `-${formatTime(video.duration - video.currentTime)}`;
-            }
+            totTime.innerText = `-${formatTime(video.duration - video.currentTime)}`;
             currentTime.innerText = formatTime(video.currentTime);
             const progress = pl.querySelector(".onigiri-timeline") as HTMLDivElement;
             const p = pl.querySelector(".onigiri") as HTMLDivElement;
@@ -806,7 +788,7 @@ class Onigiri {
         if (this.isScrubbing) {
             this.wasPaused = video.paused
         } else {
-            video.currentTime = Math.round(video.duration * percent)
+            video.currentTime = Math.floor(video.duration * percent)
             if (!this.wasPaused) video.play()
         }
     }
