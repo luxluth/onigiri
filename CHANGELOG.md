@@ -1,5 +1,11 @@
 # onigiri
 
+## 0.3.6
+
+### Patch Changes
+
+- ec5a9c6: Remove pre-determine video type
+
 ## 0.3.5
 
 ### Patch Changes
