@@ -346,19 +346,6 @@ class Onigiri {
             this.togglePlayPause(video)
         });
 
-        video.addEventListener("pause", () => {
-            // show the controls
-            if (!this.controlBarState.isShowing) {
-                this.showControls(pl);
-            }
-        });
-
-        video.addEventListener("play", () => {
-            if (!this.controlBarState.isShowing) {
-                this.showControls(pl);
-            }
-        });
-
         video.onseeking = () => {
             // show the controls
             this.showControls(pl);
@@ -542,12 +529,19 @@ class Onigiri {
         });
 
         video.onpause = () => {
+            // show the controls
+            if (!this.controlBarState.isShowing) {
+                this.showControls(pl);
+            }
             this.playButton.classList.remove("pause");
             this.playButton.classList.add("play");
             this.animateClickAction(this.playButton);
         };
 
         video.onplay = () => {
+            if (!this.controlBarState.isShowing) {
+                this.showControls(pl);
+            }
             this.playButton.classList.remove("play");
             this.playButton.classList.add("pause");
             this.animateClickAction(this.playButton);
@@ -571,7 +565,8 @@ class Onigiri {
             const progress = pl.querySelector(".onigiri-timeline") as HTMLDivElement;
             const p = pl.querySelector(".onigiri") as HTMLDivElement;
             // --progress-position is between 0 and 100
-            progress.style.setProperty("--progress-position", `${Math.floor((video.currentTime / video.duration) * 100)}`);
+            let intermadiate = (video.currentTime / video.duration) * 100
+            progress.style.setProperty("--progress-position", `${intermadiate.toFixed(1)}`);
         });
 
         // set the click on the progress bar
@@ -675,7 +670,7 @@ class Onigiri {
                     this.seekForwardFive(video);
                     break;
                 case " ":
-                    this.togglePlayPause(video);
+                    (async () => await this.togglePlayPause(video))()
                     break;
                 case "arrowup":
                     this.volumeUp(video);
@@ -686,9 +681,8 @@ class Onigiri {
                 case "m":
                     this.toogleMute(video);
                     break;
-
                 case "f":
-                    this.toogleFullscreen(pl);
+                    (async () => await this.toogleFullscreen(pl))();
                     break;
             }
         });
@@ -762,8 +756,9 @@ class Onigiri {
         const percent = (x / rect.width);
         // set the current time
         video.currentTime = video.duration * percent;
+        let intermadiate = percent * 100
         // set the progress bar
-        progress.style.setProperty("--progress-position", `${Math.floor(percent * 100)}`);
+        progress.style.setProperty("--progress-position", `${intermadiate.toFixed(1)}`);
         if (this.isScrubbing) {
             e.preventDefault();
         }
@@ -816,9 +811,9 @@ class Onigiri {
     }
 
 
-    togglePlayPause(video: HTMLVideoElement) {
+    async togglePlayPause(video: HTMLVideoElement) {
         if (video.paused) {
-            video.play();
+            await video.play();
         } else {
             video.pause();
         }
@@ -829,52 +824,52 @@ class Onigiri {
         player.muted = !player.muted;
     }
 
-    toogleFullscreen(player: HTMLDivElement) {
+    async toogleFullscreen(player: HTMLDivElement) {
         // get browser name
         const browser = getBrowser();
         // toggle fullscreen if not in fullscreen
         if (!document.fullscreenElement) {
             switch (browser) {
                 case "chrome":
-                    player.requestFullscreen();
+                    await player.requestFullscreen();
                     break;
                 case "firefox":
-                    player.requestFullscreen();
+                    await player.requestFullscreen();
                     break;
                 case "safari":
                     //@ts-ignore
-                    player.webkitRequestFullscreen();
+                    await player.webkitRequestFullscreen();
                     console.log("safari");
                     break;
                 case "opera":
-                    player.requestFullscreen();
+                    await player.requestFullscreen();
                     break;
                 case "ie":
-                    player.requestFullscreen();
+                    await player.requestFullscreen();
                 default:
-                    player.requestFullscreen();
+                    await player.requestFullscreen();
                     break;
             }
         } else {
             // exit fullscreen if in fullscreen
             switch (browser) {
                 case "chrome":
-                    document.exitFullscreen();
+                    await document.exitFullscreen();
                     break;
                 case "firefox":
-                    document.exitFullscreen();
+                    await document.exitFullscreen();
                     break;
                 case "safari":
                     //@ts-ignore
-                    document.webkitExitFullscreen();
+                    await document.webkitExitFullscreen();
                     break;
                 case "opera":
-                    document.exitFullscreen();
+                    await document.exitFullscreen();
                     break;
                 case "ie":
-                    document.exitFullscreen();
+                    await document.exitFullscreen();
                 default:
-                    document.exitFullscreen();
+                    await document.exitFullscreen();
                     break;
             }
         }
