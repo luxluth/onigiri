@@ -1,3 +1,4 @@
+import Onigiri from '.';
 import { Menu } from './menu'
 
 type QualityOpt = {
@@ -196,10 +197,16 @@ type Options = {
      */
     alternateName?: string,
     /**
-     * onQuit describe if an event is emit when the quit button is clicked
+     * Listening for quit event
+     * @param player the Onigiri player
+     * @param video the video element
      */
-    onQuit?: boolean
-
+    onQuit?(player: Onigiri, video: HTMLVideoElement): void,
+    /**
+     * Listening for ready event
+     * @param player the Onigiri player
+     */
+    onReady?(player: Onigiri): void,
     /**
      * menu: An onigiri menu Element class
      */

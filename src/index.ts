@@ -305,11 +305,7 @@ class Onigiri {
             loadingBar.classList.remove('load');
         });
 
-        try {
-            video.play()
-        } catch {
-            video.pause()
-        }
+        await this.togglePlayPause(video)
 
         pl.onmousemove = (e) => {
             this.lastMousePosition = { x: e.clientX, y: e.clientY };
@@ -340,10 +336,10 @@ class Onigiri {
             this.showControls(pl);
         });
 
-        video.addEventListener("click", () => {
+        video.addEventListener("click", async () => {
             // show the controls
             this.showControls(pl);
-            this.togglePlayPause(video)
+            await this.togglePlayPause(video)
         });
 
         video.onseeking = () => {
@@ -451,8 +447,8 @@ class Onigiri {
         // set the play button
         this.playButton = pl.querySelector(".onigiri-playpause") as HTMLButtonElement;
         this.onVidControls = pl.querySelector(".onigiri-onVidControls") as HTMLDivElement;
-        this.playButton.addEventListener("click", () => {
-            this.togglePlayPause(video);
+        this.playButton.addEventListener("click", async () => {
+            await this.togglePlayPause(video);
         });
 
         video.addEventListener("volumechange", () => {
@@ -496,13 +492,10 @@ class Onigiri {
             QuitButton.remove();
         } else {
             const QuitButton = pl.querySelector(".onigiri-quit") as HTMLButtonElement;
-            switch (this.Options.onQuit) {
-                case true:
-                    QuitButton.addEventListener("click", () => {
-                        this.triggerEvent("quit", { video: video, player: this });
-                    })
-                    break;
-            }
+            this.triggerEvent("quit", {player: pl, video: video})
+            QuitButton.addEventListener("click", () => {
+                this.Options.onQuit?(this, video) : console.error("onQuit is not defined")
+            });
         }
 
 
@@ -581,12 +574,12 @@ class Onigiri {
             }
         });
 
-        progress.addEventListener("mousedown", (e) => {
-            this.toggleScrubbing(e, progress, video);
+        progress.addEventListener("mousedown", async (e) => {
+            await this.toggleScrubbing(e, progress, video);
         });
 
-        document.addEventListener("mouseup", (e) => {
-            if (this.isScrubbing) this.toggleScrubbing(e, progress, video);
+        document.addEventListener("mouseup", async (e) => {
+            if (this.isScrubbing) await this.toggleScrubbing(e, progress, video);
         });
 
         document.addEventListener("mousemove", (e) => {
@@ -600,7 +593,10 @@ class Onigiri {
         });
 
         // send ready event
-        this.triggerEvent("ready", { video: video, player: this });
+        this.triggerEvent("ready", { player: this });
+        if (this.Options.onReady) {
+            this.Options.onReady(this)
+        }
     }
 
     addChapterEvent(chapter: Chapter, video: HTMLVideoElement) {
@@ -780,7 +776,7 @@ class Onigiri {
         }
     };
 
-    toggleScrubbing(e: MouseEvent, progress: HTMLDivElement, video: HTMLVideoElement) {
+    async toggleScrubbing(e: MouseEvent, progress: HTMLDivElement, video: HTMLVideoElement) {
         const rect = progress.getBoundingClientRect()
         const x = e.clientX - rect.left;
         const percent = (x / rect.width);
@@ -790,7 +786,7 @@ class Onigiri {
             this.wasPaused = video.paused
         } else {
             video.currentTime = Math.floor(video.duration * percent)
-            if (!this.wasPaused) video.play()
+            if (!this.wasPaused) await video.play()
         }
     }
 
@@ -828,50 +824,54 @@ class Onigiri {
         // get browser name
         const browser = getBrowser();
         // toggle fullscreen if not in fullscreen
-        if (!document.fullscreenElement) {
-            switch (browser) {
-                case "chrome":
-                    await player.requestFullscreen();
-                    break;
-                case "firefox":
-                    await player.requestFullscreen();
-                    break;
-                case "safari":
-                    //@ts-ignore
-                    await player.webkitRequestFullscreen();
-                    console.log("safari");
-                    break;
-                case "opera":
-                    await player.requestFullscreen();
-                    break;
-                case "ie":
-                    await player.requestFullscreen();
-                default:
-                    await player.requestFullscreen();
-                    break;
+        try {
+            if (!document.fullscreenElement) {
+                switch (browser) {
+                    case "chrome":
+                        await player.requestFullscreen();
+                        break;
+                    case "firefox":
+                        await player.requestFullscreen();
+                        break;
+                    case "safari":
+                        //@ts-ignore
+                        await player.webkitRequestFullscreen();
+                        console.log("safari");
+                        break;
+                    case "opera":
+                        await player.requestFullscreen();
+                        break;
+                    case "ie":
+                        await player.requestFullscreen();
+                    default:
+                        await player.requestFullscreen();
+                        break;
+                }
+            } else {
+                // exit fullscreen if in fullscreen
+                switch (browser) {
+                    case "chrome":
+                        await document.exitFullscreen();
+                        break;
+                    case "firefox":
+                        await document.exitFullscreen();
+                        break;
+                    case "safari":
+                        //@ts-ignore
+                        await document.webkitExitFullscreen();
+                        break;
+                    case "opera":
+                        await document.exitFullscreen();
+                        break;
+                    case "ie":
+                        await document.exitFullscreen();
+                    default:
+                        await document.exitFullscreen();
+                        break;
+                }
             }
-        } else {
-            // exit fullscreen if in fullscreen
-            switch (browser) {
-                case "chrome":
-                    await document.exitFullscreen();
-                    break;
-                case "firefox":
-                    await document.exitFullscreen();
-                    break;
-                case "safari":
-                    //@ts-ignore
-                    await document.webkitExitFullscreen();
-                    break;
-                case "opera":
-                    await document.exitFullscreen();
-                    break;
-                case "ie":
-                    await document.exitFullscreen();
-                default:
-                    await document.exitFullscreen();
-                    break;
-            }
+        } catch (err) {
+            console.info("Error fullscreen:", err)
         }
     }
 
