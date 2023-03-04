@@ -1,5 +1,11 @@
 # onigiri
 
+## 0.3.8
+
+### Patch Changes
+
+- 133f53f: Try Fix floating point finite
+
 ## 0.3.7
 
 ### Patch Changes
