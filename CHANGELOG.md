@@ -1,5 +1,11 @@
 # onigiri
 
+## 0.3.1
+
+### Patch Changes
+
+- c84bf0f: Optimizations
+
 ## 0.3.0
 
 ### Minor Changes
