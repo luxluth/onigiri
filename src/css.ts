@@ -522,7 +522,7 @@ button svg {
   left: 0;
   top: 0;
   bottom: 0;
-  right: calc(100% - var(--progress-position) * 100%);
+  right: calc(100% - var(--progress-position) * 1%);
   background-color: #f2f2f2;
   opacity: 1;
   transition-duration: 70ms;

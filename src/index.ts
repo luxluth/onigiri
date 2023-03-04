@@ -467,7 +467,7 @@ class Onigiri {
                 volumeButton.classList.remove(this.volumeCurrentState);
                 this.volumeCurrentState = "mute";
                 volumeButton.classList.add(this.volumeCurrentState);
-            } else if (video.volume > 0 && video.volume <= 0.5) {
+            } else if (video.volume > 0 && video.volume < 0.5) {
                 volumeButton.classList.remove(this.volumeCurrentState);
                 this.volumeCurrentState = "down";
                 volumeButton.classList.add(this.volumeCurrentState);
@@ -564,8 +564,8 @@ class Onigiri {
             currentTime.innerText = formatTime(video.currentTime);
             const progress = pl.querySelector(".onigiri-timeline") as HTMLDivElement;
             const p = pl.querySelector(".onigiri") as HTMLDivElement;
-            // --progress-position is between 0 and 1
-            progress.style.setProperty("--progress-position", `${video.currentTime / video.duration}`);
+            // --progress-position is between 0 and 100
+            progress.style.setProperty("--progress-position", `${Math.floor((video.currentTime / video.duration) * 100)}`);
         });
 
         // set the click on the progress bar
@@ -752,12 +752,12 @@ class Onigiri {
     handleTimelineUpdate(e: MouseEvent, progress: HTMLDivElement, video: HTMLVideoElement) {
         const rect = progress.getBoundingClientRect();
         const x = e.clientX - rect.left;
-        // --progress-position is between 0 and 1
+        // --progress-position is between 0 and 100
         const percent = (x / rect.width);
         // set the current time
         video.currentTime = video.duration * percent;
         // set the progress bar
-        progress.style.setProperty("--progress-position", `${percent}`);
+        progress.style.setProperty("--progress-position", `${Math.floor(percent * 100)}`);
         if (this.isScrubbing) {
             e.preventDefault();
         }
