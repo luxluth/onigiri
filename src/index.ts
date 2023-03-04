@@ -785,7 +785,7 @@ class Onigiri {
         if (this.isScrubbing) {
             this.wasPaused = video.paused
         } else {
-            video.currentTime = Math.floor(video.duration * percent)
+            video.currentTime = video.duration * percent
             if (!this.wasPaused) await video.play()
         }
     }
