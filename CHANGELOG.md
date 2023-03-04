@@ -1,5 +1,11 @@
 # onigiri
 
+## 0.3.2
+
+### Patch Changes
+
+- f3f1d51: Imporovement + onReady and onQuit options changes
+
 ## 0.3.1
 
 ### Patch Changes
