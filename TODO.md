@@ -1,3 +1,4 @@
 # TODOS
 
-- [X] use toFixed(1) or toFixed(2) for percent
+- [ ] `video.ontimeupdate = () = {}`, webkit video api.
+The webkit is not very good handeling eventListeners.
