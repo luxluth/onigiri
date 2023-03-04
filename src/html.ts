@@ -20,7 +20,7 @@ export const PlayerBaseHtml = `
         <p class="onigiri-subText"></p>
     </div>
     <div class="onigiri-onVidControls">
-      <button class="onigiri-playpause pause">
+      <button class="onigiri-playpause play">
         <svg class="onigiri-playSvg" width="50px" height="50px" version="1.1" viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg">
           <path d="M 91.712 143.932 L 91.712 556.02 C 91.736 569.875 97.247 583.16 107.044 592.955 C 116.841 602.75 130.125 608.263 143.979 608.287 C 152.086 608.299 160.089 606.378 167.309 602.688 L 579.485 396.733 C 591.091 390.886 600.104 380.935 604.78 368.815 C 609.457 356.689 609.457 343.265 604.78 331.141 C 600.104 319.021 591.093 309.069 579.485 303.223 L 167.309 97.267 C 151.13 89.137 131.889 89.98 116.482 99.493 C 101.075 109.007 91.7 125.826 91.712 143.936 L 91.712 143.932 Z" style="fill: #f2f2f2;">
             <title>Play</title>

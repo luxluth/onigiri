@@ -119,6 +119,11 @@ class Onigiri {
             }
 
         }
+
+        // set poster
+        if (this.Options.poster) {
+            video.setAttribute("poster", this.Options.poster)
+        }
         // bind key events
         this.bindkeyDownEventForVideo(video, pl);
         // console.log(navigator.userAgent);
@@ -779,12 +784,16 @@ class Onigiri {
     async toggleScrubbing(e: MouseEvent, progress: HTMLDivElement, video: HTMLVideoElement) {
         const rect = progress.getBoundingClientRect()
         const x = e.clientX - rect.left;
-        const percent = (x / rect.width);
+        const percent = parseFloat((x / rect.width).toFixed(3));
         this.isScrubbing = (e.buttons & 1) === 1
         progress.classList.toggle("scrubbing", this.isScrubbing)
         if (this.isScrubbing) {
             this.wasPaused = video.paused
         } else {
+            if (isNaN(video.duration) || !isFinite(percent)) {
+                console.warn("Invalid duration or percent value:", video.duration, percent)
+                return
+            }
             video.currentTime = video.duration * percent
             if (!this.wasPaused) await video.play()
         }
