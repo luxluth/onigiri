@@ -87,7 +87,7 @@ type Options = {
     },
 
     /**
-     * video source {src, type, auth}
+     * video source
      */
     source: {
         src: Source[],
@@ -96,6 +96,12 @@ type Options = {
             policy: "anonymous" | "use-credentials" | ""
         }>,
     },
+    /**
+     * Video attributes
+     */
+    attr?: {
+        [key: string]: string;
+    }
 
     // This is the quality.
     quality?: {

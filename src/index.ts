@@ -98,12 +98,7 @@ class Onigiri {
         // set the video
         const video = pl.querySelector("#onigiri-video") as HTMLVideoElement;
         if (this.browser === "safari") {
-            // add playsinline attribute to the video element
             video.setAttribute("preload", "metadata")
-            video.setAttribute("muted", "")
-            video.setAttribute("autoplay", "")
-            video.setAttribute("playsinline", "");
-            video.setAttribute("webkit-playsinline", "");
         }
         // set the source
         this.Options.source.src.forEach((source) => {
@@ -114,6 +109,15 @@ class Onigiri {
         })
         if (this.Options.source.crossorigin) {
             video.crossOrigin = this.Options.source.crossorigin
+        }
+
+        // set attributes
+        if (this.Options.attr) {
+            for (const attrName in this.Options.attr) {
+                const attrValue = this.Options.attr[attrName]?.toString();
+                video.setAttribute(attrName, attrValue? attrValue : "");
+            }
+
         }
         // bind key events
         this.bindkeyDownEventForVideo(video, pl);
@@ -305,8 +309,6 @@ class Onigiri {
             loadingBar.classList.remove('load');
         });
 
-        await this.togglePlayPause(video)
-
         pl.onmousemove = (e) => {
             this.lastMousePosition = { x: e.clientX, y: e.clientY };
             // show the controls
@@ -494,7 +496,7 @@ class Onigiri {
             const QuitButton = pl.querySelector(".onigiri-quit") as HTMLButtonElement;
             this.triggerEvent("quit", {player: pl, video: video})
             QuitButton.addEventListener("click", () => {
-                this.Options.onQuit?(this, video) : console.error("onQuit is not defined")
+                if (this.Options.onQuit) this.Options.onQuit(this, video);
             });
         }
 
@@ -594,9 +596,7 @@ class Onigiri {
 
         // send ready event
         this.triggerEvent("ready", { player: this });
-        if (this.Options.onReady) {
-            this.Options.onReady(this)
-        }
+        if (this.Options.onReady) this.Options.onReady(this);
     }
 
     addChapterEvent(chapter: Chapter, video: HTMLVideoElement) {
@@ -871,7 +871,7 @@ class Onigiri {
                 }
             }
         } catch (err) {
-            console.info("Error fullscreen:", err)
+            console.warn("Error fullscreen")
         }
     }
 

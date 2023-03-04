@@ -2,6 +2,10 @@
 
 A small fast and simple video player for the web.
 
+[![CI](https://github.com/luxluth/onigiri/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/luxluth/onigiri/actions/workflows/main.yml)
+[![Publish](https://github.com/luxluth/onigiri/actions/workflows/publish.yml/badge.svg?branch=main)](https://github.com/luxluth/onigiri/actions/workflows/publish.yml)
+[![npm](https://img.shields.io/npm/v/@luxluth/onigiri?style=flat&logo=npm&color=fedcba)](https://www.npmjs.com/package/@luxluth/onigiri)
+
 ## work in progress
 
 Work in progress, not ready for production.
@@ -18,11 +22,9 @@ Available on:
 
 ```bash
 pnpm add @luxluth/onigiri
-
 ```
 ```bash
 npm install @luxluth/onigiri
-
 ```
 
 ## Example using Svelte
@@ -41,7 +43,10 @@ npm install @luxluth/onigiri
                         type : "video/mp4"
                     }
                 ],
-                crossorigin: "anonymous"
+                crossorigin: "anonymous",
+                attr: {
+                    autoplay: true
+                }
             },
             css : "width: 100%; height: 100vh;",
             videoName : "Dynamite",
@@ -52,7 +57,7 @@ npm install @luxluth/onigiri
                     label: "English",
                     srclang: "en",
                     default: true,
-                    src: "/src/assets/dynamite-en.vtt",
+                    src: "http://localhost:8000/file/dynamite-en.vtt",
                     type: "text/vtt",
                 }
             ],
