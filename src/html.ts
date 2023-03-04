@@ -13,7 +13,7 @@ export const PlayerBaseHtml = `
     <div class="onigiri-overlay">
     </div>
     <div class="onigiri-vid">
-        <video id="onigiri-video" type="video/mp4">
+        <video id="onigiri-video">
         </video>
     </div>
     <div class="onigiri-subs">
