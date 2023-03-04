@@ -1,5 +1,11 @@
 # onigiri
 
+## 0.3.5
+
+### Patch Changes
+
+- b3044cd: Types attr
+
 ## 0.3.4
 
 ### Patch Changes
