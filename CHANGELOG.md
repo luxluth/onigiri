@@ -1,5 +1,11 @@
 # onigiri
 
+## 0.3.0
+
+### Minor Changes
+
+- 8a738ba: Change The src building
+
 ## 0.2.24
 
 ### Patch Changes
