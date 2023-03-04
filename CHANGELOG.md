@@ -1,5 +1,11 @@
 # onigiri
 
+## 0.3.7
+
+### Patch Changes
+
+- 28348b6: Finite floating point
+
 ## 0.3.6
 
 ### Patch Changes
