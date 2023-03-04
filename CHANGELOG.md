@@ -1,5 +1,11 @@
 # onigiri
 
+## 0.3.9
+
+### Patch Changes
+
+- 33acaef: onVideoEnded
+
 ## 0.3.8
 
 ### Patch Changes
