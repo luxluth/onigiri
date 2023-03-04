@@ -100,7 +100,7 @@ type Options = {
      * Video attributes
      */
     attr?: {
-        [key: string]: string;
+        [key: string]: any;
     }
 
     // This is the quality.
