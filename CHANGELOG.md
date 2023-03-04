@@ -1,5 +1,11 @@
 # onigiri
 
+## 0.3.3
+
+### Patch Changes
+
+- 9896922: EsNext
+
 ## 0.3.2
 
 ### Patch Changes
