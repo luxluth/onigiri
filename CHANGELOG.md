@@ -1,5 +1,11 @@
 # onigiri
 
+## 0.2.24
+
+### Patch Changes
+
+- 0b06135: Optimize timeline change
+
 ## 0.2.23
 
 ### Patch Changes
