@@ -214,6 +214,12 @@ type Options = {
      */
     onReady?(player: Onigiri): void,
     /**
+     * Listening for the video ended event
+     * @param player the Onigiri player
+     * @param video the video element
+     */
+    onVideoEnded?(player: Onigiri, video: HTMLVideoElement): void,
+    /**
      * menu: An onigiri menu Element class
      */
     menu?: Menu

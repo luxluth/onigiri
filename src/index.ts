@@ -182,7 +182,7 @@ class Onigiri {
                         trackElement.default = track.default as boolean;
                         video.appendChild(trackElement);
                     } else {
-                        console.error('Unsupported track type');
+                        console.warn('Unsupported track type', track);
                     }
                 } else if (track.kind === 'chapter') {
                     this.addChapterEvent(track, video);
@@ -358,7 +358,8 @@ class Onigiri {
             // show the controls
             this.showControls(pl);
             // trigger event videoEnded
-            this.triggerEvent('videoEnded');
+            this.triggerEvent('videoEnded', {player: this, video: video});
+            if (this.Options.onVideoEnded) this.Options.onVideoEnded(this, video)
         });
 
         // overlay
@@ -791,7 +792,6 @@ class Onigiri {
             this.wasPaused = video.paused
         } else {
             if (isNaN(video.duration) || !isFinite(percent)) {
-                console.warn("Invalid duration or percent value:", video.duration, percent)
                 return
             }
             video.currentTime = video.duration * percent
