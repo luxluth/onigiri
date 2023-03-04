@@ -1,5 +1,11 @@
 # onigiri
 
+## 0.3.4
+
+### Patch Changes
+
+- 440fee2: Attr option for adding attributes to the video element
+
 ## 0.3.3
 
 ### Patch Changes
