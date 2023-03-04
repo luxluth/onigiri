@@ -37,9 +37,9 @@ npm install @luxluth/onigiri
             source : {
                 src : [
                     {
-                        'http://localhost:8000/video/dynamite.mp4',
-                        type : "video/mp4",
-                    },
+                        href: 'http://localhost:8000/video/dynamite.mp4',
+                        type : "video/mp4"
+                    }
                 ],
                 crossorigin: "anonymous"
             },
