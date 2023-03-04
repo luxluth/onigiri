@@ -24,6 +24,18 @@ type Subtitles = {
     type: 'text/vtt' | 'text/json',
 }
 
+type Source = {
+    href: string,
+    type: string,
+    auth?: string,
+}
+
+type Policy<T> = T extends {
+    policy: infer policy
+} ? policy : never
+
+type CrossOrigin<T> = Policy<T> 
+
 type Options = {
     // This is the player configuration.
     // This is the controls.
@@ -72,13 +84,16 @@ type Options = {
         enabled: boolean,
         key: 'onigiri',
     },
+
     /**
      * video source {src, type, auth}
      */
     source: {
-        src: string,
-        type: string,
+        src: Source[],
         auth?: string,
+        crossorigin?: CrossOrigin<{
+            policy: "anonymous" | "use-credentials" | ""
+        }>,
     },
 
     // This is the quality.

@@ -106,9 +106,15 @@ class Onigiri {
             video.setAttribute("webkit-playsinline", "");
         }
         // set the source
-        video.src = this.Options.source.src;
-        // set type
-        video.setAttribute("type", this.Options.source.type)
+        this.Options.source.src.forEach((source) => {
+            const sourceElem = document.createElement('source') as HTMLSourceElement
+            sourceElem.src = source.href
+            sourceElem.type = source.type
+            video.appendChild(sourceElem)
+        })
+        if (this.Options.source.crossorigin) {
+            video.crossOrigin = this.Options.source.crossorigin
+        }
         // bind key events
         this.bindkeyDownEventForVideo(video, pl);
         // console.log(navigator.userAgent);

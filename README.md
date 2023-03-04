@@ -17,6 +17,10 @@ Available on:
 ## Usage
 
 ```bash
+pnpm add @luxluth/onigiri
+
+```
+```bash
 npm install @luxluth/onigiri
 
 ```
@@ -31,8 +35,13 @@ npm install @luxluth/onigiri
     onMount(async () => {
         const player = new Onigiri("#video",{
             source : {
-                src : 'http://localhost:8000/video/dynamite.mp4',
-                type : "video/mp4"
+                src : [
+                    {
+                        'http://localhost:8000/video/dynamite.mp4',
+                        type : "video/mp4",
+                    },
+                ],
+                crossorigin: "anonymous"
             },
             css : "width: 100%; height: 100vh;",
             videoName : "Dynamite",
