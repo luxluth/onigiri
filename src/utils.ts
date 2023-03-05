@@ -135,16 +135,19 @@ function truncate(n: number, str: string) {
     return str.substring(0, n).trim() + "...";
 }
 
-function formatTime(time: number) {
-    // format time
-    const hours = Math.floor(time / 60 / 60);
-    const minutes = Math.floor(time / 60) - hours * 60;
-    const seconds = Math.floor(time - minutes * 60 - hours * 60 * 60);
-    const formattedTime = [hours, minutes, seconds]
-        .map((v) => (v < 10 ? `0${v}` : v))
-        .filter((v, i) => v !== "00" || i > 0)
-        .join(":");
-    return formattedTime;
+const leadingZeroFmt = new Intl.NumberFormat(undefined, {
+    minimumIntegerDigits: 2
+})
+
+function formatTime(time: number)  {
+    const s = Math.floor(time % 60)
+    const m = Math.floor(time / 60) % 60
+    const h = Math.floor(time / 3600)
+    if (h === 0) {
+        return `${m}:${leadingZeroFmt.format(s)}`
+    } else {
+        return `${h}:${m}:${leadingZeroFmt.format(s)}`
+    }
 }
 
 function getBrowser() {
