@@ -1,5 +1,11 @@
 # onigiri
 
+## 0.3.10
+
+### Patch Changes
+
+- f45931d: Native video function
+
 ## 0.3.9
 
 ### Patch Changes
