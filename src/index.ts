@@ -293,26 +293,25 @@ class Onigiri {
             this.showControls(pl);
         }
 
-        video.addEventListener("loadedmetadata", () => {
+        video.onloadedmetadata = () => {
             // set the duration
             const duration = pl.querySelector(".onigiri-total-time span") as HTMLSpanElement;
-            // @ts-ignore
-            if (!this.Options.isLive) {
-                duration.innerText = formatTime(video.duration);
-            }
-        });
+            const currentTime = pl.querySelector(".onigiri-current-time span") as HTMLSpanElement;
+            duration.innerText = formatTime(video.duration);
+            currentTime.innerText = formatTime(0);
+        }
 
         // when the video is getting data from the server show the loading spinner
-        video.addEventListener("waiting", () => {
+        video.onwaiting = () => {
             const loadingBar = pl.querySelector(".onigiri-loading") as HTMLDivElement;
             loadingBar.classList.add('load');
-        });
+        }
 
         // when the video is getting data from the server hide the loading spinner
-        video.addEventListener("playing", () => {
+        video.onplaying = () => {
             const loadingBar = pl.querySelector(".onigiri-loading") as HTMLDivElement;
             loadingBar.classList.remove('load');
-        });
+        }
 
         pl.onmousemove = (e) => {
             this.lastMousePosition = { x: e.clientX, y: e.clientY };
@@ -343,25 +342,24 @@ class Onigiri {
             this.showControls(pl);
         });
 
-        video.addEventListener("click", async () => {
+        video.onclick = async () => {
             // show the controls
             this.showControls(pl);
             await this.togglePlayPause(video)
-        });
+        }
 
         video.onseeking = () => {
             // show the controls
             this.showControls(pl);
         }
 
-        video.addEventListener("ended", () => {
+        video.onended = () => {
             // show the controls
             this.showControls(pl);
             // trigger event videoEnded
             this.triggerEvent('videoEnded', {player: this, video: video});
             if (this.Options.onVideoEnded) this.Options.onVideoEnded(this, video)
-        });
-
+        }
         // overlay
         let epsInit = false
         if (this.Options.videoName) {
@@ -459,7 +457,7 @@ class Onigiri {
             await this.togglePlayPause(video);
         });
 
-        video.addEventListener("volumechange", () => {
+        video.onvolumechange = () => {
             if (video.volume === 0 && this.volumeCurrentState !== "mute") {
                 volumeButton.classList.remove(this.volumeCurrentState);
                 this.volumeCurrentState = "mute";
@@ -475,7 +473,8 @@ class Onigiri {
             }
             // change the volume slider proprety --value
             sliderRange.style.setProperty("--value", `${video.volume}`);
-        });
+        }
+
         video.addEventListener("muted", () => {
             volumeButton.classList.remove(this.volumeCurrentState);
             this.volumeCurrentState = "mute";
@@ -558,7 +557,7 @@ class Onigiri {
         }
 
         // set the current time and progress bar
-        video.addEventListener("timeupdate", () => {
+        video.ontimeupdate = () => {
             const currentTime = pl.querySelector(".onigiri-current-time span") as HTMLSpanElement;
             const totTime = pl.querySelector(".onigiri-total-time span") as HTMLSpanElement;
             totTime.innerText = `-${formatTime(video.duration - video.currentTime)}`;
@@ -568,7 +567,7 @@ class Onigiri {
             // --progress-position is between 0 and 100
             let intermadiate = (video.currentTime / video.duration) * 100
             progress.style.setProperty("--progress-position", `${intermadiate.toFixed(1)}`);
-        });
+        }
 
         // set the click on the progress bar
         const progress = pl.querySelector(".onigiri-timeline") as HTMLDivElement;
