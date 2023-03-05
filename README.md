@@ -15,8 +15,8 @@ Available on:
 - [X] firefox
 - [X] edge
 - [X] opera
-- [ ] webkit
-- [ ] safari
+- [ ] webkit (partial support ^0.3.11 - **Some events might not work**)
+- [ ] safari (test)
 
 ## Usage
 
