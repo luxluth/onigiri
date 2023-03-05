@@ -146,7 +146,7 @@ function formatTime(time: number)  {
     if (h === 0) {
         return `${m}:${leadingZeroFmt.format(s)}`
     } else {
-        return `${h}:${m}:${leadingZeroFmt.format(s)}`
+        return `${h}:${leadingZeroFmt.format(m)}:${leadingZeroFmt.format(s)}`
     }
 }
 
