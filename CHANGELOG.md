@@ -1,5 +1,11 @@
 # onigiri
 
+## 0.3.11
+
+### Patch Changes
+
+- e725942: Load call in the constructor remove
+
 ## 0.3.10
 
 ### Patch Changes
