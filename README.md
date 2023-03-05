@@ -34,35 +34,35 @@ npm install @luxluth/onigiri
     import { onMount } from "svelte";
     import Onigiri from "@luxluth/onigiri"
 
-    onMount(async () => {
-        const player = new Onigiri("#video",{
-            source : {
-                src : [
-                    {
-                        href: 'http://localhost:8000/video/dynamite.mp4',
-                        type : "video/mp4"
-                    }
-                ],
-                crossorigin: "anonymous",
-                attr: {
-                    autoplay: true
-                }
-            },
-            css : "width: 100%; height: 100vh;",
-            videoName : "Dynamite",
-            alternateName: "BTS",
-            tracks: [
+    const player = new Onigiri("#video",{
+        source : {
+            src : [
                 {
-                    kind: "subtitles",
-                    label: "English",
-                    srclang: "en",
-                    default: true,
-                    src: "http://localhost:8000/file/dynamite-en.vtt",
-                    type: "text/vtt",
+                    href: 'http://localhost:8000/video/dynamite.mp4',
+                    type : "video/mp4"
                 }
             ],
-        })
+            crossorigin: "anonymous",
+            attr: {
+                autoplay: true
+            }
+        },
+        css : "width: 100%; height: 100vh;",
+        videoName : "Dynamite",
+        alternateName: "BTS",
+        tracks: [
+            {
+                kind: "subtitles",
+                label: "English",
+                srclang: "en",
+                default: true,
+                src: "http://localhost:8000/file/dynamite-en.vtt",
+                type: "text/vtt",
+            }
+        ],
+    })
 
+    onMount(async () => {
         await player.load()
     })
 </script>

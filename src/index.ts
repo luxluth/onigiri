@@ -62,7 +62,6 @@ class Onigiri {
         // This is the constructor.
         this.QuerySelectorPlayer = querySelector;
         this.Options = options;
-        this.load();
     }
 
     // load the player
