@@ -37,6 +37,16 @@ function parseVTTSettings(settings: string, cue: VTTCue): VTTCue {
 }
 
 
+function createSource(data: BlobPart[] | undefined, blobOptions: BlobPropertyBag | undefined): string {
+    const blob = new Blob(data, blobOptions)
+    return URL.createObjectURL(blob)
+}
+
+async function fetchText(url: RequestInfo | URL, init?: RequestInit | undefined) {
+    const rsp = await fetch(url, init)
+    return await rsp.text()
+}
+
 function turnOnSubtitles(O: Onigiri, pl: HTMLDivElement, video: HTMLVideoElement, lang: string, subButton: HTMLButtonElement) {
     const subtitleBox = pl.querySelector('.onigiri-subs') as HTMLDivElement;
     const subtitleBoxText = subtitleBox.querySelector('.onigiri-subText') as HTMLParagraphElement;
@@ -188,5 +198,7 @@ export {
     truncate,
     formatTime,
     getBrowser,
-    convertToHtml
+    convertToHtml,
+    createSource,
+    fetchText
 }
