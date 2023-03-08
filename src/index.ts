@@ -6,7 +6,9 @@ import {
     turnOffSubtitles,
     truncate,
     formatTime,
-    getBrowser
+    getBrowser,
+    fetchText,
+    createSource
 } from './utils'
 
 import type {
@@ -163,6 +165,8 @@ class Onigiri {
                             }
                         }
                     } if (track.type === 'text/vtt') {
+                        let vttData = await fetchText(track.src)
+                        let url = createSource([vttData], {type: "text/vtt"})
                         // add a new track to the video with the src
                         const trackElement = document.createElement('track');
                         const subBoxList = pl.querySelector('.onigiri-subBox_list') as HTMLDivElement;
@@ -177,7 +181,7 @@ class Onigiri {
                         trackElement.kind = track.kind;
                         trackElement.label = track.label;
                         trackElement.srclang = track.srclang as string;
-                        trackElement.src = track.src as string;
+                        trackElement.src = url;
                         trackElement.default = track.default as boolean;
                         video.appendChild(trackElement);
                     } else {
