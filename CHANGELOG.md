@@ -1,5 +1,11 @@
 # onigiri
 
+## 0.3.12
+
+### Patch Changes
+
+- fd3be02: Patch changes. New experimental utils `createSource` and `fetchText`
+
 ## 0.3.11
 
 ### Patch Changes
