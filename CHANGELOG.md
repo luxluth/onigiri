@@ -1,5 +1,11 @@
 # onigiri
 
+## 0.3.17
+
+### Patch Changes
+
+- 0cecd12: Change style
+
 ## 0.3.16
 
 ### Patch Changes
