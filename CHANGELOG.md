@@ -1,5 +1,15 @@
 # onigiri
 
+## 0.3.14
+
+### Patch Changes
+
+- 22de459: Remove webvtt-parser
+
+  No `CJS`, and error with `vitejs`
+
+  Next step is to make my own parser
+
 ## 0.3.13
 
 ### Patch Changes
