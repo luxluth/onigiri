@@ -1,5 +1,11 @@
-*
-!package.json
-!dist/**/*
-!README.md
-!LICENSE
+.changeset
+.github
+.assets
+dist
+node_modules
+src
+.gitignore
+pnpm-lock.yaml
+TODO.md
+tsconfig.json
+tsup.config.ts

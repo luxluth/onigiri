@@ -19,37 +19,37 @@
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "default": "./dist/index.js"
+      "types": "./index.d.ts",
+      "import": "./index.mjs",
+      "default": "./index.js"
     },
     "./menu": {
-      "types": "./dist/menu/index.d.ts",
-      "import": "./dist/menu/index.mjs",
-      "default": "./dist/menu/index.js"
+      "types": "./menu/index.d.ts",
+      "import": "./menu/index.mjs",
+      "default": "./menu/index.js"
     },
     "./api/subtitles": {
-      "types": "./dist/api/subtitles/index.d.ts",
-      "import": "./dist/api/subtitles/index.mjs",
-      "default": "./dist/api/subtitles/index.js"
+      "types": "./api/subtitles/index.d.ts",
+      "import": "./api/subtitles/index.mjs",
+      "default": "./api/subtitles/index.js"
     },
     "./api/subtitles/parsing": {
-      "types": "./dist/api/subtitles/parsing.d.ts",
-      "import": "./dist/api/subtitles/parsing.mjs",
-      "default": "./dist/api/subtitles/parsing.js"
+      "types": "./api/subtitles/parsing.d.ts",
+      "import": "./api/subtitles/parsing.mjs",
+      "default": "./api/subtitles/parsing.js"
     },
     "./api/video": {
-      "types": "./dist/api/video/index.d.ts",
-      "import": "./dist/api/video/index.mjs",
-      "default": "./dist/api/video/index.js"
+      "types": "./api/video/index.d.ts",
+      "import": "./api/video/index.mjs",
+      "default": "./api/video/index.js"
     },
     "./plugin": {
-      "types": "./dist/plugin/index.d.ts",
-      "import": "./dist/plugin/index.mjs",
-      "default": "./dist/plugin/index.js"
+      "types": "./plugin/index.d.ts",
+      "import": "./plugin/index.mjs",
+      "default": "./plugin/index.js"
     }
   },
-  "types": "./dist/index.d.ts",
+  "types": "./index.d.ts",
   "version": "0.3.13",
   "devDependencies": {
     "@changesets/cli": "^2.26.0",
@@ -61,6 +61,7 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "lint": "tsc",
-    "release": "pnpm lint && pnpm build && changeset publish"
+    "format": "mv dist/**/* . rm -rf dist",
+    "release": "pnpm lint && pnpm build && pnpm format && changeset publish"
   }
 }
