@@ -64,3 +64,9 @@ class VTTContainer implements VTTContainer {
       return false;
     }
 }
+
+
+export {
+  Cues,
+  VTTContainer
+}
