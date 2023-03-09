@@ -1,6 +1,6 @@
 .changeset
 .github
-.assets
+assets
 dist
 node_modules
 src
