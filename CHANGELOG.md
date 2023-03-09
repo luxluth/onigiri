@@ -1,5 +1,11 @@
 # onigiri
 
+## 0.3.16
+
+### Patch Changes
+
+- dad5313: assets remove from the bundle
+
 ## 0.3.15
 
 ### Patch Changes
