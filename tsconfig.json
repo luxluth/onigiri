@@ -10,5 +10,10 @@
     "noUncheckedIndexedAccess": true,                 /* Add 'undefined' to a type when accessed using an index. */
     "skipLibCheck": true,                                 /* Skip type checking all .d.ts files. */
     "noEmit": true,                                      /* Do not emit outputs. */
+    "paths": {
+      "." : [
+        "./src/typings/*"
+      ]
+    },
   }
 }

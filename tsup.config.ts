@@ -1,7 +1,7 @@
 import { defineConfig } from 'tsup'
 
 export default defineConfig({
-    entry : ["src/index.ts", "src/menu/index.ts"],
+    entry : ["src"],
     format: ["cjs", "esm"],
     treeshake: true,
     dts: true,

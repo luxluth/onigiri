@@ -17,7 +17,9 @@ import type {
     ControlBarState,
     VolumeState,
     Chapter
-} from './types'
+} from './typings/onigiri'
+
+import parse from './api/subtitles/parsing'
 
 class Onigiri {
     QuerySelectorPlayer: string;
@@ -68,15 +70,6 @@ class Onigiri {
 
     // load the player
     async load() {
-        // check if the source is valid
-        // if (this.Options.source) {
-        //     let isReachable = await this.checkReachable(this.Options.source.src);
-        //     if (!isReachable) {
-        //         this.showWarning("Source not reachable", "The source is not reachable, please check the source url.");
-        //         return;
-        //     }
-        // }
-        // if quality options is an empty array, then set it to null
         if (this.Options.quality?.options.length === 0) {
             console.log("Quality options is empty, setting it to null");
         } else {
@@ -166,6 +159,7 @@ class Onigiri {
                         }
                     } if (track.type === 'text/vtt') {
                         let vttData = await fetchText(track.src)
+                        console.log(parse(vttData))
                         let url = createSource([vttData], {type: "text/vtt"})
                         // add a new track to the video with the src
                         const trackElement = document.createElement('track');
