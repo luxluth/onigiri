@@ -1,9 +1,5 @@
-import { WebVTTParser } from 'webvtt-parser';
-
 function parse(VTTString: string) {
-    const parser = new WebVTTParser();
-    const tree = parser.parse(VTTString, 'metadata');
-    console.log(tree)
+    console.log(VTTString)
 }
 
 export default parse
