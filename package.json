@@ -28,29 +28,29 @@
       "import": "./dist/menu/index.mjs",
       "default": "./dist/menu/index.js"
     },
-    "./api/subtitles" : {
+    "./api/subtitles": {
       "types": "./dist/api/subtitles/index.d.ts",
       "import": "./dist/api/subtitles/index.mjs",
       "default": "./dist/api/subtitles/index.js"
     },
-    "./api/subtitles/parsing" : {
+    "./api/subtitles/parsing": {
       "types": "./dist/api/subtitles/parsing.d.ts",
       "import": "./dist/api/subtitles/parsing.mjs",
       "default": "./dist/api/subtitles/parsing.js"
     },
-    "./api/video" : {
+    "./api/video": {
       "types": "./dist/api/video/index.d.ts",
       "import": "./dist/api/video/index.mjs",
       "default": "./dist/api/video/index.js"
     },
-    "./plugin" : {
+    "./plugin": {
       "types": "./dist/plugin/index.d.ts",
       "import": "./dist/plugin/index.mjs",
       "default": "./dist/plugin/index.js"
     }
   },
   "types": "./dist/index.d.ts",
-  "version": "0.3.12",
+  "version": "0.3.13",
   "devDependencies": {
     "@changesets/cli": "^2.26.0",
     "terser": "^5.16.6",
