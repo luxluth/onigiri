@@ -33,7 +33,7 @@ npm install @luxluth/onigiri
 <script lang="ts">
     import { onMount } from "svelte";
     import Onigiri from "@luxluth/onigiri"
-
+    
     const player = new Onigiri("#video",{
         source : {
             src : [
@@ -43,9 +43,9 @@ npm install @luxluth/onigiri
                 }
             ],
             crossorigin: "anonymous",
-            attr: {
-                autoplay: true
-            }
+        },
+        attr: {
+            autoplay: true
         },
         css : "width: 100%; height: 100vh;",
         videoName : "Dynamite",
