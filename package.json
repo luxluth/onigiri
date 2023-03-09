@@ -27,6 +27,26 @@
       "types": "./dist/menu/index.d.ts",
       "import": "./dist/menu/index.mjs",
       "default": "./dist/menu/index.js"
+    },
+    "./api/subtitles" : {
+      "types": "./dist/api/subtitles/index.d.ts",
+      "import": "./dist/api/subtitles/index.mjs",
+      "default": "./dist/api/subtitles/index.js"
+    },
+    "./api/subtitles/parsing" : {
+      "types": "./dist/api/subtitles/parsing.d.ts",
+      "import": "./dist/api/subtitles/parsing.mjs",
+      "default": "./dist/api/subtitles/parsing.js"
+    },
+    "./api/video" : {
+      "types": "./dist/api/video/index.d.ts",
+      "import": "./dist/api/video/index.mjs",
+      "default": "./dist/api/video/index.js"
+    },
+    "./plugin" : {
+      "types": "./dist/plugin/index.d.ts",
+      "import": "./dist/plugin/index.mjs",
+      "default": "./dist/plugin/index.js"
     }
   },
   "types": "./dist/index.d.ts",
