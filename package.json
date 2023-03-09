@@ -61,7 +61,6 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "lint": "tsc",
-    "format": "mv dist/**/* . && rm -rf dist",
-    "release": "pnpm lint && pnpm build && pnpm format && changeset publish"
+    "release": "pnpm lint && pnpm build && changeset publish"
   }
 }

@@ -12,4 +12,5 @@ export default defineConfig({
     format: ["cjs", "esm"],
     treeshake: true,
     dts: true,
+    outDir : "."
 })
