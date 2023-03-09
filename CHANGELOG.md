@@ -1,5 +1,11 @@
 # onigiri
 
+## 0.3.15
+
+### Patch Changes
+
+- 7c12056: Format publish
+
 ## 0.3.14
 
 ### Patch Changes
