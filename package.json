@@ -50,7 +50,7 @@
     }
   },
   "types": "./index.d.ts",
-  "version": "0.3.13",
+  "version": "0.3.14",
   "devDependencies": {
     "@changesets/cli": "^2.26.0",
     "terser": "^5.16.6",
